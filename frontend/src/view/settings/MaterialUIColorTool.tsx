@@ -17,8 +17,8 @@ import { i18n } from 'src/i18n';
 import { Box } from '@material-ui/core';
 
 const defaults = {
-  primary: '#2196f3',
-  secondary: '#f50057',
+  primary: '#0062b0',
+  secondary: '#00b0a6',
 };
 const hues = Object.keys(colors).slice(1, 17);
 const shades = [

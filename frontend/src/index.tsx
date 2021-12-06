@@ -16,5 +16,10 @@ import TenantService from './modules/tenant/tenantService';
 
   const App = require('./App').default;
   document.title = i18n('app.title');
-  ReactDOM.render(<App />, document.getElementById('root'));
+  ReactDOM.render(
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>,
+    document.getElementById('root')
+  );
 })();

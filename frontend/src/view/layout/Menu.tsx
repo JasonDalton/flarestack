@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   active: {
     color: theme.palette.primary.main,
+    fontWeight: 300,
     //fontWeight: theme.typography.fontWeightMedium,
   },
   toolbar: theme.mixins.toolbar,

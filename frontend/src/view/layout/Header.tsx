@@ -1,7 +1,6 @@
 import layoutActions from 'src/modules/layout/layoutActions';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import I18nSelect from 'src/view/layout/I18nSelect';
 import {
   AppBar,
   Toolbar,
@@ -17,7 +16,7 @@ import selectors from 'src/modules/auth/authSelectors';
 const useStyles = makeStyles((theme) => ({
   appBar: {
     color: theme.palette.getContrastText(
-      theme.palette.primary.main,
+      theme.palette.secondary.main,
     ),
     zIndex: theme.zIndex.drawer + 1,
   },
@@ -26,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 500,
     fontSize: '1.5em',
     color: theme.palette.getContrastText(
-      theme.palette.primary.main,
+      theme.palette.secondary.main,
     ),
     textDecoration: 'none',
   },
@@ -60,9 +59,9 @@ function Header(props) {
           {logoUrl ? (
             <img
               src={logoUrl}
-              width="164px"
+              height="40px"
               alt={i18n('app.title')}
-              style={{ verticalAlign: 'middle' }}
+              style={{ verticalAlign: 'middle',backgroundColor:'#fff' }}
             />
           ) : (
             <>{i18n('app.title')}</>
@@ -71,7 +70,6 @@ function Header(props) {
 
         <div className={classes.grow} />
 
-        <I18nSelect />
 
         <UserMenu />
       </Toolbar>
