@@ -65,7 +65,11 @@
   "eslintConfig": {
     "extends": [
       "react-app"
-    ]
+    ],
+    "rules": {
+      "import/no-named-as-default": "off",
+      "import/no-anonymous-default-export": "off"
+    }
   },
   "browserslist": {
     "production": [
