@@ -1,32 +1,43 @@
 import Permissions from 'src/security/permissions';
 import { i18n } from 'src/i18n';
 import React from 'react';
-import CreditCardOutlinedIcon from '@material-ui/icons/CreditCardOutlined';
+//import CreditCardOutlinedIcon from '@material-ui/icons/CreditCardOutlined';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import PersonIcon from '@material-ui/icons/Person';
-import HistoryIcon from '@material-ui/icons/History';
-import SettingsIcon from '@material-ui/icons/Settings';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import config from 'src/config';
-
+import HistoryIcon from '@material-ui/icons/History';
+import PersonIcon from '@material-ui/icons/Person';
+import SettingsIcon from '@material-ui/icons/Settings';
+import MapIcon from '@material-ui//icons/Map';
+import ListIcon from '@material-ui/icons/List';
 const permissions = Permissions.values;
+
+
+
+
 
 export default [
   {
     path: '/',
     exact: true,
-    icon: <DashboardIcon />,
+    icon: <MapIcon />,
     label: i18n('dashboard.menu'),
     permissionRequired: null,
   },
-
-  config.isPlanEnabled && {
-    path: '/plan',
-    permissionRequired: permissions.planRead,
-    icon: <CreditCardOutlinedIcon />,
-    label: i18n('plan.menu'),
+  {
+    path: '/home',
+    permissionRequired: permissions.mapRead,
+    icon: <ChevronRightIcon />,
+    label: i18n('entities.map.menu'),
   },
 
+
+  {
+    path: '/list',
+    permissionRequired: permissions.mapRead,
+    icon: <ChevronRightIcon />,
+    label: i18n('entities.map.menu'),
+  },
+  
   {
     path: '/user',
     label: i18n('user.menu'),

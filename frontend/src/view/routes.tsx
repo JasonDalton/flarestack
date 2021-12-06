@@ -2,11 +2,42 @@ import Permissions from 'src/security/permissions';
 import config from 'src/config';
 const permissions = Permissions.values;
 
-const privateRoutes = [
+
+const customRoutes = [
   {
     path: '/',
     loader: () =>
-      import('src/view/dashboard/DashboardPage'),
+      import('src/view/home/form/HomeFormPage'),
+    permissionRequired: permissions.mapRead,
+    exact: true,
+  },
+
+  {
+    path: '/home',
+    loader: () =>
+      import('src/view/home/list/HomeListPage'),
+    permissionRequired: permissions.mapRead,
+    exact: true,
+  },
+
+
+
+  {
+    path: '/list',
+    loader: () =>
+      import('src/view/home/list/HomeListPage'),
+    permissionRequired: permissions.mapRead,
+    exact: true,
+  },
+
+]
+const privateRoutes = [
+  ...customRoutes,
+
+  {
+    path: '/',
+    loader: () =>
+      import('src/view/home/HomePage'),
     permissionRequired: null,
     exact: true,
   },
@@ -101,7 +132,7 @@ const privateRoutes = [
       import('src/view/settings/SettingsFormPage'),
     permissionRequired: permissions.settingsEdit,
   },
-  
+
   {
     path: '/map',
     loader: () =>
@@ -248,6 +279,8 @@ const simpleRoutes = [
   },
 ].filter(Boolean);
 
+
+
 export default {
   privateRoutes,
   publicRoutes,
@@ -256,3 +289,4 @@ export default {
   emailUnverifiedRoutes,
   simpleRoutes,
 };
+
