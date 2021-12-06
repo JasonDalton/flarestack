@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
   active: {
     color: theme.palette.primary.main,
-    fontWeight: theme.typography.fontWeightMedium,
+    //fontWeight: theme.typography.fontWeightMedium,
   },
   toolbar: theme.mixins.toolbar,
   listItemIcon: {
