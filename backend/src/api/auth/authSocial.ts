@@ -1,7 +1,7 @@
 import passport from 'passport';
 import AuthService from '../../services/auth/authService';
 import GoogleStrategy from 'passport-google-oauth20';
-import FacebookStrategy from 'passport-facebook';
+
 import ApiResponseHandler from '../apiResponseHandler';
 import { databaseInit } from '../../database/databaseConnection';
 import { get } from 'lodash';
@@ -107,82 +107,6 @@ export default (app, routes) => {
         passport.authenticate('google', (err, jwtToken) => {
           handleCallback(res, err, jwtToken);
         })(req, res, next);
-      },
-    );
-  }
-
-  if (process.env.AUTH_SOCIAL_FACEBOOK_CLIENT_ID) {
-    passport.use(
-      new FacebookStrategy(
-        {
-          clientID:
-            process.env.AUTH_SOCIAL_FACEBOOK_CLIENT_ID,
-          clientSecret:
-            process.env.AUTH_SOCIAL_FACEBOOK_CLIENT_SECRET,
-          callbackURL:
-            process.env.AUTH_SOCIAL_FACEBOOK_CALLBACK_URL,
-          profileFields: ['id', 'email', 'displayName'],
-        },
-        function (
-          accessToken,
-          refreshToken,
-          profile,
-          done,
-        ) {
-          databaseInit()
-            .then((database) => {
-              const email = get(profile, 'emails[0].value');
-              const emailVerified = true;
-
-              const displayName = get(
-                profile,
-                'displayName',
-              );
-              const { firstName, lastName } = splitFullName(
-                displayName,
-              );
-
-              return AuthService.signinFromSocial(
-                'facebook',
-                profile.id,
-                email,
-                emailVerified,
-                firstName,
-                lastName,
-                { database },
-              );
-            })
-            .then((jwtToken) => {
-              done(null, jwtToken);
-            })
-            .catch((error) => {
-              console.error(error);
-              done(error, null);
-            });
-        },
-      ),
-    );
-
-    routes.get(
-      '/auth/social/facebook',
-      passport.authenticate('facebook', {
-        session: false,
-      }),
-      function (req, res) {
-        // The request will be redirected for authentication, so this
-        // function will not be called.
-      },
-    );
-
-    routes.get(
-      '/auth/social/facebook/callback',
-      function (req, res, next) {
-        passport.authenticate(
-          'facebook',
-          (err, jwtToken) => {
-            handleCallback(res, err, jwtToken);
-          },
-        )(req, res, next);
       },
     );
   }
