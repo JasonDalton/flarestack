@@ -35,7 +35,7 @@ export default class ImporterSchema {
         rowWithColumnNames,
       );
       await this.yupSchema.validate(validatableRow);
-    } catch (error) {
+    } catch (error: any) {
       rowWithColumnNames._status = statuses.ERROR;
       rowWithColumnNames._errorMessage = error.message;
     }
