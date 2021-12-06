@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/map`,
+    require('./mapCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/map/:id`,
+    require('./mapUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/map/import`,
+    require('./mapImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/map`,
+    require('./mapDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/map/autocomplete`,
+    require('./mapAutocomplete').default,
+  );
+  app.get(
+    `/tenant/:tenantId/map`,
+    require('./mapList').default,
+  );
+  app.get(
+    `/tenant/:tenantId/map/:id`,
+    require('./mapFind').default,
+  );
+};
