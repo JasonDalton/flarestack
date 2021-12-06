@@ -27,6 +27,7 @@ const tenantMode = 'single';
  */
 const isPlanEnabled = false;
 const stripePublishableKey = '';
+const mapboxAccessToken='pk.eyJ1IjoibWFwcGlza3lsZSIsImEiOiJja3Z4aDN1NTYwc3FoMm5vMXlyNGoxY2lhIn0.QTC6s5EWHcqXzHxw3s4PQQ'
 
 export default {
   frontendUrl,
@@ -34,5 +35,6 @@ export default {
   apiDocumentationUrl,
   tenantMode,
   isPlanEnabled,
-  stripePublishableKey
+  stripePublishableKey,
+  mapboxAccessToken
 };
