@@ -26,7 +26,7 @@ const en = {
   },
 
   app: {
-    title: 'Application',
+    title: 'FlareStack',
   },
 
   api: {
