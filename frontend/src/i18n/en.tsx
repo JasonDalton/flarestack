@@ -26,7 +26,7 @@ const en = {
   },
 
   app: {
-    title: 'FlareStack',
+    title: 'Application',
   },
 
   api: {
@@ -34,36 +34,38 @@ const en = {
   },
 
   entities: {
-    map: {
-        name: 'map',
-        label: 'Maps',
-        menu: 'Maps',
-        exporterFileName: 'map_export',
+    aoi: {
+        name: 'aoi',
+        label: 'AOIs',
+        menu: 'AOIs',
+        exporterFileName: 'aoi_export',
         list: {
-          menu: 'Maps',
-          title: 'Maps',
+          menu: 'AOIs',
+          title: 'AOIs',
         },
         create: {
-          success: 'Map successfully saved',
+          success: 'Aoi successfully saved',
         },
         update: {
-          success: 'Map successfully saved',
+          success: 'Aoi successfully saved',
         },
         destroy: {
-          success: 'Map successfully deleted',
+          success: 'Aoi successfully deleted',
         },
         destroyAll: {
-          success: 'Map(s) successfully deleted',
+          success: 'Aoi(s) successfully deleted',
         },
         edit: {
-          title: 'Edit Map',
+          title: 'Edit Aoi',
         },
         fields: {
           id: 'Id',
           'name': 'Name',
           'description': 'Description',
           'geojson': 'Geojson',
-          'preview': 'Preview',
+          'estTimeCompleteRange': 'Estimated Time to Completion (min)',
+          'estTimeComplete': 'Estimated Time to Completion (min)',
+          'orders': 'Orders',
           createdAt: 'Created at',
           updatedAt: 'Updated at',
           createdAtRange: 'Created at',
@@ -78,14 +80,14 @@ const en = {
 
         },
         new: {
-          title: 'New Map',
+          title: 'New Aoi',
         },
         view: {
-          title: 'View Map',
+          title: 'View Aoi',
         },
         importer: {
-          title: 'Import Maps',
-          fileName: 'map_import_template',
+          title: 'Import AOIs',
+          fileName: 'aoi_import_template',
           hint:
             'Files/Images columns must be the URLs of the files separated by space.',
         },
@@ -118,7 +120,7 @@ const en = {
         fields: {
           id: 'Id',
           'name': 'Name',
-          'geojson': 'Map Layer',
+          'aoi': 'AOI',
           'notifyOnComplete': 'Email Notification',
           'ready': 'Ready',
           createdAt: 'Created at',
@@ -564,24 +566,6 @@ const en = {
   pagination: {
     labelDisplayedRows: '{0}-{1} of {2}',
     labelRowsPerPage: 'Per page:',
-  },
-
-
-  draw: {
-    meny: 'New Order',
-    title: 'Draw',
-    menu: 'Draw',
-    save: {
-      success:
-        'Geojson successfully saved.',
-    },
-    fields: {
-      primary: 'Primary Color',
-      secondary: 'Secondary Color',
-      logos: 'Logo',
-      backgroundImages: 'Background Images',
-      shade: 'Shade',
-    },
   },
 };
 

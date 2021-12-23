@@ -90,7 +90,7 @@ const es = {
   },
 
   entities: {
-    map: {
+    aoi: {
       errors: {
         unique: {
           name: 'Name debe ser único',

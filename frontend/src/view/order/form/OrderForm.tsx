@@ -13,7 +13,7 @@ import yupFormSchemas from 'src/modules/shared/yup/yupFormSchemas';
 import { yupResolver } from '@hookform/resolvers/yup';
 import InputFormItem from 'src/view/shared/form/items/InputFormItem';
 import SwitchFormItem from 'src/view/shared/form/items/SwitchFormItem';
-import MapAutocompleteFormItem from 'src/view/map/autocomplete/MapAutocompleteFormItem';
+import AoiAutocompleteFormItem from 'src/view/aoi/autocomplete/AoiAutocompleteFormItem';
 
 const schema = yup.object().shape({
   name: yupFormSchemas.string(
@@ -22,8 +22,8 @@ const schema = yup.object().shape({
       "required": true
     },
   ),
-  geojson: yupFormSchemas.relationToOne(
-    i18n('entities.order.fields.geojson'),
+  aoi: yupFormSchemas.relationToOne(
+    i18n('entities.order.fields.aoi'),
     {
       "required": true
     },
@@ -44,7 +44,7 @@ function OrderForm(props) {
 
     return {
       name: record.name,
-      geojson: record.geojson,
+      aoi: record.aoi,
       notifyOnComplete: record.notifyOnComplete,
       ready: record.ready,
     };
@@ -82,9 +82,9 @@ function OrderForm(props) {
               />
             </Grid>
             <Grid item lg={7} md={8} sm={12} xs={12}>
-              <MapAutocompleteFormItem  
-                name="geojson"
-                label={i18n('entities.order.fields.geojson')}
+              <AoiAutocompleteFormItem  
+                name="aoi"
+                label={i18n('entities.order.fields.aoi')}
                 required={true}
                 showCreate={!props.modal}
               />

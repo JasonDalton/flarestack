@@ -11,8 +11,8 @@ export default [
     label: i18n('entities.order.fields.name'),
   },
   {
-    name: 'geojson',
-    label: i18n('entities.order.fields.geojson'),
+    name: 'aoi',
+    label: i18n('entities.order.fields.aoi'),
     render: exporterRenders.relationToOne(),
   },
   {

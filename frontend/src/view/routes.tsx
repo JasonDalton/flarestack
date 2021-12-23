@@ -1,34 +1,23 @@
 import Permissions from 'src/security/permissions';
 import config from 'src/config';
 const permissions = Permissions.values;
+
 const privateRoutes = [
-/*   {
+  {
     path: '/',
     loader: () =>
       import('src/view/dashboard/DashboardPage'),
     permissionRequired: null,
     exact: true,
-  },  */
-  {
-    path: '/',
-    loader: () =>
-      import('src/view/map/list/MapListPage'),
-    permissionRequired: permissions.mapRead,
-    exact: true,
   },
-/*     {
-    path: '/draw',
-    loader: () =>
-      import('src/view/draw/DrawPage'),
-    permissionRequired: permissions.mapRead,
-    exact: true,
-  }, */
+
   {
     path: '/profile',
     loader: () => import('src/view/auth/ProfileFormPage'),
     permissionRequired: null,
     exact: true,
   },
+
   {
     path: '/password-change',
     loader: () =>
@@ -36,6 +25,7 @@ const privateRoutes = [
     permissionRequired: null,
     exact: true,
   },
+
   {
     path: '/tenant',
     loader: () =>
@@ -57,24 +47,28 @@ const privateRoutes = [
     permissionRequired: null,
     exact: true,
   },
+
   config.isPlanEnabled && {
     path: '/plan',
     loader: () => import('src/view/plan/PlanPage'),
     permissionRequired: permissions.planRead,
     exact: true,
   },
+
   {
     path: '/user',
     loader: () => import('src/view/user/list/UserPage'),
     permissionRequired: permissions.userRead,
     exact: true,
   },
+
   {
     path: '/user/new',
     loader: () => import('src/view/user/new/UserNewPage'),
     permissionRequired: permissions.userCreate,
     exact: true,
   },
+
   {
     path: '/user/importer',
     loader: () =>
@@ -94,54 +88,58 @@ const privateRoutes = [
     permissionRequired: permissions.userRead,
     exact: true,
   },
+
   {
     path: '/audit-logs',
     loader: () => import('src/view/auditLog/AuditLogPage'),
     permissionRequired: permissions.auditLogRead,
   },
+
   {
     path: '/settings',
     loader: () =>
       import('src/view/settings/SettingsFormPage'),
     permissionRequired: permissions.settingsEdit,
   },
+  
   {
-    path: '/map',
+    path: '/aoi',
     loader: () =>
-      import('src/view/map/list/MapListPage'),
-    permissionRequired: permissions.mapRead,
+      import('src/view/aoi/list/AoiListPage'),
+    permissionRequired: permissions.aoiRead,
     exact: true,
   },
   {
-    path: '/map/new',
+    path: '/aoi/new',
     loader: () =>
-      import('src/view/map/form/MapFormPage'),
-    permissionRequired: permissions.mapCreate,
+      import('src/view/aoi/form/AoiFormPage'),
+    permissionRequired: permissions.aoiCreate,
     exact: true,
   },
   {
-    path: '/map/importer',
+    path: '/aoi/importer',
     loader: () =>
       import(
-        'src/view/map/importer/MapImporterPage'
+        'src/view/aoi/importer/AoiImporterPage'
       ),
-    permissionRequired: permissions.mapImport,
+    permissionRequired: permissions.aoiImport,
     exact: true,
   },
   {
-    path: '/map/:id/edit',
+    path: '/aoi/:id/edit',
     loader: () =>
-      import('src/view/map/form/MapFormPage'),
-    permissionRequired: permissions.mapEdit,
+      import('src/view/aoi/form/AoiFormPage'),
+    permissionRequired: permissions.aoiEdit,
     exact: true,
   },
   {
-    path: '/map/:id',
+    path: '/aoi/:id',
     loader: () =>
-      import('src/view/map/view/MapViewPage'),
-    permissionRequired: permissions.mapRead,
+      import('src/view/aoi/view/AoiViewPage'),
+    permissionRequired: permissions.aoiRead,
     exact: true,
   },
+
   {
     path: '/order',
     loader: () =>
@@ -180,6 +178,7 @@ const privateRoutes = [
     exact: true,
   },
 ].filter(Boolean);
+
 const publicRoutes = [
   {
     path: '/auth/signin',
@@ -195,12 +194,14 @@ const publicRoutes = [
       import('src/view/auth/ForgotPasswordPage'),
   },
 ].filter(Boolean);
+
 const emptyTenantRoutes = [
   {
     path: '/auth/tenant',
     loader: () => import('src/view/auth/TenantPage'),
   },
 ].filter(Boolean);
+
 const emptyPermissionsRoutes = [
   {
     path: '/auth/empty-permissions',
@@ -208,6 +209,7 @@ const emptyPermissionsRoutes = [
       import('src/view/auth/EmptyPermissionsPage'),
   },
 ].filter(Boolean);
+
 const emailUnverifiedRoutes = [
   {
     path: '/auth/email-unverified',
@@ -215,6 +217,7 @@ const emailUnverifiedRoutes = [
       import('src/view/auth/EmailUnverifiedPage'),
   },
 ].filter(Boolean);
+
 const simpleRoutes = [
   {
     path: '/auth/password-reset',
@@ -244,6 +247,7 @@ const simpleRoutes = [
       import('src/view/shared/errors/Error404Page'),
   },
 ].filter(Boolean);
+
 export default {
   privateRoutes,
   publicRoutes,

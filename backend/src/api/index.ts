@@ -46,11 +46,11 @@ app.use(
   bodyParser.json({
     verify: function (req, res, buf) {
       const url = (<any>req).originalUrl;
-     // if (url.startsWith('/api/plan/stripe/webhook')) {
+      if (url.startsWith('/api/plan/stripe/webhook')) {
         // Stripe Webhook needs the body raw in order
         // to validate the request
-      //  (<any>req).rawBody = buf.toString();
-      //}
+        (<any>req).rawBody = buf.toString();
+      }
     },
   }),
 );
@@ -68,7 +68,7 @@ require('./tenant').default(routes);
 require('./file').default(routes);
 require('./user').default(routes);
 require('./settings').default(routes);
-require('./map').default(routes);
+require('./aoi').default(routes);
 require('./order').default(routes);
 
 // Loads the Tenant if the :tenantId param is passed

@@ -1,0 +1,30 @@
+export default (app) => {
+  app.post(
+    `/tenant/:tenantId/aoi`,
+    require('./aoiCreate').default,
+  );
+  app.put(
+    `/tenant/:tenantId/aoi/:id`,
+    require('./aoiUpdate').default,
+  );
+  app.post(
+    `/tenant/:tenantId/aoi/import`,
+    require('./aoiImport').default,
+  );
+  app.delete(
+    `/tenant/:tenantId/aoi`,
+    require('./aoiDestroy').default,
+  );
+  app.get(
+    `/tenant/:tenantId/aoi/autocomplete`,
+    require('./aoiAutocomplete').default,
+  );
+  app.get(
+    `/tenant/:tenantId/aoi`,
+    require('./aoiList').default,
+  );
+  app.get(
+    `/tenant/:tenantId/aoi/:id`,
+    require('./aoiFind').default,
+  );
+};

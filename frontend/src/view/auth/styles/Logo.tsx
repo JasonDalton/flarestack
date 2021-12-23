@@ -1,24 +1,3 @@
-
-import { styled } from '@material-ui/core/styles';
-
-const Content = styled('div')(({ theme }) => ({
-  zIndex: 1,
-  position: 'relative',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'center',
-  padding: '12px 10px',
-  backgroundColor: '#fff',
-  [theme.breakpoints.down('sm')]: {
-    width: '100%',
-    borderLeft: 0,
-  },
-}));
-
-export default Content;
-
-/*
 import styled from 'styled-components';
 
 const Logo = styled.div`
@@ -36,4 +15,3 @@ const Logo = styled.div`
 `;
 
 export default Logo;
-*/

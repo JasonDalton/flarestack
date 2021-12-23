@@ -6,7 +6,7 @@ import plan from 'src/modules/plan/planReducers';
 import user from 'src/modules/user/userReducers';
 import auditLog from 'src/modules/auditLog/auditLogReducers';
 import settings from 'src/modules/settings/settingsReducers';
-import map from 'src/modules/map/mapReducers';
+import aoi from 'src/modules/aoi/aoiReducers';
 import order from 'src/modules/order/orderReducers';
 import { combineReducers } from 'redux';
 
@@ -20,6 +20,6 @@ export default (history) =>
     user,
     auditLog,
     settings,
-    map,
+    aoi,
     order,
   });

@@ -1,6 +1,6 @@
 const defaults = {
   primary: '#2196f3',
-  secondary: '#00b0a6',
+  secondary: '#f50057',
 };
 
 export default {

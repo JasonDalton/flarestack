@@ -2,7 +2,7 @@ import React from 'react';
 import Spinner from 'src/view/shared/Spinner';
 import { i18n } from 'src/i18n';
 import TextViewItem from 'src/view/shared/view/TextViewItem';
-import MapViewItem from 'src/view/map/view/MapViewItem';
+import AoiViewItem from 'src/view/aoi/view/AoiViewItem';
 
 function OrderView(props) {
   const renderView = () => {
@@ -15,9 +15,9 @@ function OrderView(props) {
           value={record.name}
         />
 
-        <MapViewItem
-          label={i18n('entities.order.fields.geojson')}
-          value={record.geojson}
+        <AoiViewItem
+          label={i18n('entities.order.fields.aoi')}
+          value={record.aoi}
         />
 
         <TextViewItem

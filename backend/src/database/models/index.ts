@@ -3,7 +3,7 @@ const models = [
   require('./auditLog').default,  
   require('./settings').default,
   require('./user').default,
-  require('./map').default,
+  require('./aoi').default,
   require('./order').default,  
 ];
 

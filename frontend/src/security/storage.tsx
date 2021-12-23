@@ -10,11 +10,7 @@
 export default class Storage {
   static get values() {
     return {
-      mapPreview: {
-        id: 'mapPreview',
-        folder: 'tenant/:tenantId/map/preview',
-        maxSizeInBytes: 100 * 1024 * 1024,
-      },
+
 
 
       settingsLogos: {

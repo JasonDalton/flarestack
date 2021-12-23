@@ -86,7 +86,7 @@ const ptBR = {
   },
 
   entities: {
-    map: {
+    aoi: {
       errors: {
         unique: {
           name: 'Name deve ser único',

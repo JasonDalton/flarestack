@@ -4,7 +4,7 @@
 
 const en = {
   app: {
-    title: 'FlareStack',
+    title: 'Application',
   },
 
   auth: {
@@ -88,7 +88,7 @@ const en = {
   },
 
   entities: {
-    map: {
+    aoi: {
       errors: {
         unique: {
           name: 'Name must be unique',

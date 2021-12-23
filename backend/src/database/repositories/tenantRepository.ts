@@ -5,7 +5,7 @@ import User from '../models/user';
 import Tenant from '../models/tenant';
 import Settings from '../models/settings';
 import Error404 from '../../errors/Error404';
-import Map from '../models/map';
+import Aoi from '../models/aoi';
 import Order from '../models/order';
 import Error400 from '../../errors/Error400';
 import { v4 as uuid } from 'uuid';
@@ -228,7 +228,7 @@ class TenantRepository {
       options,
     );
 
-    await Map(options.database).deleteMany({ tenant: id }, options);
+    await Aoi(options.database).deleteMany({ tenant: id }, options);
 
     await Order(options.database).deleteMany({ tenant: id }, options);
 

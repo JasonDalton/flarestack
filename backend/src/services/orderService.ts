@@ -2,7 +2,7 @@ import Error400 from '../errors/Error400';
 import MongooseRepository from '../database/repositories/mongooseRepository';
 import { IServiceOptions } from './IServiceOptions';
 import OrderRepository from '../database/repositories/orderRepository';
-import MapRepository from '../database/repositories/mapRepository';
+import AoiRepository from '../database/repositories/aoiRepository';
 
 export default class OrderService {
   options: IServiceOptions;
@@ -17,7 +17,7 @@ export default class OrderService {
     );
 
     try {
-      data.geojson = await MapRepository.filterIdInTenant(data.geojson, { ...this.options, session });
+      data.aoi = await AoiRepository.filterIdInTenant(data.aoi, { ...this.options, session });
 
       const record = await OrderRepository.create(data, {
         ...this.options,
@@ -46,7 +46,7 @@ export default class OrderService {
     );
 
     try {
-      data.geojson = await MapRepository.filterIdInTenant(data.geojson, { ...this.options, session });
+      data.aoi = await AoiRepository.filterIdInTenant(data.aoi, { ...this.options, session });
 
       const record = await OrderRepository.update(
         id,

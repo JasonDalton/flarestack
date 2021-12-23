@@ -5,6 +5,7 @@ import Error404 from '../../errors/Error404';
 import { IRepositoryOptions } from './IRepositoryOptions';
 import lodash from 'lodash';
 import Order from '../models/order';
+import Aoi from '../models/aoi';
 
 class OrderRepository {
   
@@ -38,7 +39,13 @@ class OrderRepository {
       options,
     );
 
-    
+    await MongooseRepository.refreshTwoWayRelationOneToMany(
+      record,
+      'aoi',
+      Aoi(options.database),
+      'orders',
+      options,
+    );    
 
     return this.findById(record.id, options);
   }
@@ -77,7 +84,13 @@ class OrderRepository {
 
     record = await this.findById(id, options);
 
-
+    await MongooseRepository.refreshTwoWayRelationOneToMany(
+      record,
+      'aoi',
+      Aoi(options.database),
+      'orders',
+      options,
+    );
 
     return record;
   }
@@ -105,7 +118,12 @@ class OrderRepository {
       options,
     );
 
-
+    await MongooseRepository.destroyRelationToMany(
+      id,
+      Aoi(options.database),
+      'orders',
+      options,
+    );
   }
 
   static async filterIdInTenant(
@@ -162,7 +180,7 @@ class OrderRepository {
     let record = await MongooseRepository.wrapWithSessionIfExists(
       Order(options.database)
         .findOne({_id: id, tenant: currentTenant.id})
-      .populate('geojson'),
+      .populate('aoi'),
       options,
     );
 
@@ -275,7 +293,7 @@ class OrderRepository {
       .skip(skip)
       .limit(limitEscaped)
       .sort(sort)
-      .populate('geojson');
+      .populate('aoi');
 
     const count = await Order(
       options.database,

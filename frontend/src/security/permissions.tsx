@@ -121,42 +121,42 @@ class Permissions {
           storage.settingsLogos,
         ],
       },
-      mapImport: {
-        id: 'mapImport',
+      aoiImport: {
+        id: 'aoiImport',
         allowedRoles: [roles.admin],
         allowedPlans: [plans.free, plans.growth, plans.enterprise],
       },
-      mapCreate: {
-        id: 'mapCreate',
-        allowedRoles: [roles.admin],
-        allowedPlans: [plans.free, plans.growth, plans.enterprise],
-        allowedStorage: [
-          storage.mapPreview,
-        ],
-      },
-      mapEdit: {
-        id: 'mapEdit',
+      aoiCreate: {
+        id: 'aoiCreate',
         allowedRoles: [roles.admin],
         allowedPlans: [plans.free, plans.growth, plans.enterprise],
         allowedStorage: [
-          storage.mapPreview,
+
         ],
       },
-      mapDestroy: {
-        id: 'mapDestroy',
+      aoiEdit: {
+        id: 'aoiEdit',
         allowedRoles: [roles.admin],
         allowedPlans: [plans.free, plans.growth, plans.enterprise],
         allowedStorage: [
-          storage.mapPreview,
+
         ],
       },
-      mapRead: {
-        id: 'mapRead',
+      aoiDestroy: {
+        id: 'aoiDestroy',
+        allowedRoles: [roles.admin],
+        allowedPlans: [plans.free, plans.growth, plans.enterprise],
+        allowedStorage: [
+
+        ],
+      },
+      aoiRead: {
+        id: 'aoiRead',
         allowedRoles: [roles.admin, roles.custom],
         allowedPlans: [plans.free, plans.growth, plans.enterprise],
       },
-      mapAutocomplete: {
-        id: 'mapAutocomplete',
+      aoiAutocomplete: {
+        id: 'aoiAutocomplete',
         allowedRoles: [roles.admin, roles.custom],
         allowedPlans: [plans.free, plans.growth, plans.enterprise],
       },

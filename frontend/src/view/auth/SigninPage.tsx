@@ -8,10 +8,9 @@ import { Link } from 'react-router-dom';
 import MaterialLink from '@material-ui/core/Link';
 import Content from 'src/view/auth/styles/Content';
 import Logo from 'src/view/auth/styles/Logo';
-import LogoTitle from 'src/view/layout/styles/LogoTitle';
-
 import OtherActions from 'src/view/auth/styles/OtherActions';
 import Wrapper from 'src/view/auth/styles/Wrapper';
+import I18nFlags from 'src/view/layout/I18nFlags';
 import InputFormItem from 'src/view/shared/form/items/InputFormItem';
 import {
   Checkbox,
@@ -43,24 +42,29 @@ const schema = yup.object().shape({
     i18n('user.fields.rememberMe'),
   ),
 });
+
 function SigninPage() {
   const dispatch = useDispatch();
   const location = useLocation();
+
   const { socialErrorCode } = queryString.parse(
     location.search,
   );
   const backgroundImageUrl = useSelector(
     selectors.selectBackgroundImageUrl,
   );
-  //const logoUrl = useSelector(selectors.selectLogoUrl);
-  const logoUrl = '/icons/icon.svg'
+  const logoUrl = useSelector(selectors.selectLogoUrl);
+
   const loading = useSelector(selectors.selectLoading);
+
   const externalErrorMessage = useSelector(
     selectors.selectErrorMessage,
   );
+
   useEffect(() => {
     dispatch(actions.doClearErrorMessage());
   }, [dispatch]);
+
   useEffect(() => {
     if (socialErrorCode) {
       if (socialErrorCode === 'generic') {
@@ -73,16 +77,19 @@ function SigninPage() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
   const [initialValues] = useState({
     email: '',
     password: '',
     rememberMe: true,
   });
+
   const form = useForm({
     resolver: yupResolver(schema),
     mode: 'onSubmit',
     defaultValues: initialValues,
   });
+
   const onSubmit = (values) => {
     dispatch(
       actions.doSigninWithEmailAndPassword(
@@ -92,25 +99,27 @@ function SigninPage() {
       ),
     );
   };
+
   return (
     <Wrapper
       style={{
-        backgroundImage: `url(${backgroundImageUrl || '/images/globe-digital.jpg'
-          })`,
+        backgroundImage: `url(${
+          backgroundImageUrl || '/images/signin.jpg'
+        })`,
       }}
     >
-      <Content >
-
+      <Content>
         <Logo>
-          {logoUrl && (
+          {logoUrl ? (
             <img
               src={logoUrl}
               width="240px"
               alt={i18n('app.title')}
-            />)}
-          <LogoTitle />
+            />
+          ) : (
+            <h1>{i18n('app.title')}</h1>
+          )}
         </Logo>
-
 
         <FormProvider {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -121,12 +130,14 @@ function SigninPage() {
               autoFocus
               externalErrorMessage={externalErrorMessage}
             />
+
             <InputFormItem
               name="password"
               label={i18n('user.fields.password')}
               autoComplete="password"
               type="password"
             />
+
             <Box
               display="flex"
               justifyContent="space-between"
@@ -145,6 +156,7 @@ function SigninPage() {
                 }
                 label={i18n('user.fields.rememberMe')}
               />
+
               <MaterialLink
                 style={{ marginBottom: '8px' }}
                 component={Link}
@@ -153,6 +165,7 @@ function SigninPage() {
                 {i18n('auth.forgotPassword')}
               </MaterialLink>
             </Box>
+
             <Button
               style={{ marginTop: '8px' }}
               variant="contained"
@@ -163,8 +176,9 @@ function SigninPage() {
             >
               {i18n('auth.signin')}
             </Button>
+
             <SocialButtons>
-              {/* <Tooltip title="Facebook">
+              <Tooltip title="Facebook">
                 <a
                   href={`${config.backendUrl}/auth/social/facebook`}
                 >
@@ -173,7 +187,8 @@ function SigninPage() {
                     alt="Facebook"
                   />
                 </a>
-              </Tooltip> */}
+              </Tooltip>
+
               <Tooltip title="Google">
                 <a
                   href={`${config.backendUrl}/auth/social/google`}
@@ -185,6 +200,7 @@ function SigninPage() {
                 </a>
               </Tooltip>
             </SocialButtons>
+
             <OtherActions>
               <MaterialLink
                 component={Link}
@@ -193,10 +209,13 @@ function SigninPage() {
                 {i18n('auth.createAnAccount')}
               </MaterialLink>
             </OtherActions>
+
+            <I18nFlags style={{ marginTop: '24px' }} />
           </form>
         </FormProvider>
       </Content>
     </Wrapper>
   );
 }
+
 export default SigninPage;

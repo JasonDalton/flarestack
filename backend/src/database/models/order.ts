@@ -14,9 +14,9 @@ export default (database) => {
         type: String,
         required: true,
       },
-      geojson: {
+      aoi: {
         type: Schema.Types.ObjectId,
-        ref: 'map',
+        ref: 'aoi',
         required: true,
       },
       notifyOnComplete: {

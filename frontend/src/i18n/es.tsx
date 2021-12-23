@@ -32,36 +32,38 @@ const es = {
     menu: 'API',
   },
   entities: {
-    map: {
-        name: 'map',
-        label: 'Maps',
-        menu: 'Maps',
-        exporterFileName: 'exportacion_map',
+    aoi: {
+        name: 'aoi',
+        label: 'AOIs',
+        menu: 'AOIs',
+        exporterFileName: 'exportacion_aoi',
         list: {
-          menu: 'Maps',
-          title: 'Maps',
+          menu: 'AOIs',
+          title: 'AOIs',
         },
         create: {
-          success: 'Map guardado con éxito',
+          success: 'Aoi guardado con éxito',
         },
         update: {
-          success: 'Map guardado con éxito',
+          success: 'Aoi guardado con éxito',
         },
         destroy: {
-          success: 'Map eliminado con éxito',
+          success: 'Aoi eliminado con éxito',
         },
         destroyAll: {
-          success: 'Map(s) eliminado con éxito',
+          success: 'Aoi(s) eliminado con éxito',
         },
         edit: {
-          title: 'Editar Map',
+          title: 'Editar Aoi',
         },
         fields: {
           id: 'Id',
           'name': 'Name',
           'description': 'Description',
           'geojson': 'Geojson',
-          'preview': 'Preview',
+          'estTimeCompleteRange': 'Estimated Time to Completion (min)',
+          'estTimeComplete': 'Estimated Time to Completion (min)',
+          'orders': 'Orders',
           createdAt: 'Creado el',
           updatedAt: 'Actualizado el',
           createdAtRange: 'Creado el',
@@ -76,14 +78,14 @@ const es = {
 
         },
         new: {
-          title: 'Nuevo Map',
+          title: 'Nuevo Aoi',
         },
         view: {
-          title: 'Ver Map',
+          title: 'Ver Aoi',
         },
         importer: {
-          title: 'Importar Maps',
-          fileName: 'map_import_template',
+          title: 'Importar AOIs',
+          fileName: 'aoi_import_template',
           hint:
             'Las columnas Archivos/Imágenes deben ser las URL de los archivos separados por espacio.',
         },
@@ -116,7 +118,7 @@ const es = {
         fields: {
           id: 'Id',
           'name': 'Name',
-          'geojson': 'Map Layer',
+          'aoi': 'AOI',
           'notifyOnComplete': 'Email Notification',
           'ready': 'Ready',
           createdAt: 'Creado el',

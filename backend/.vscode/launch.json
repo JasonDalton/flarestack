@@ -8,13 +8,9 @@
       "type": "node",
       "request": "launch",
       "name": "Launch Program",
-      "env": {
-        "NODE_ENV": "localhost"
-      },
+      "env": { "NODE_ENV": "localhost" },
       "program": "${workspaceFolder}/src/server.ts",
-      "outFiles": [
-        "${workspaceFolder}/dist/**/*.js"
-      ],
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
       "preLaunchTask": "typescript"
     }
   ]

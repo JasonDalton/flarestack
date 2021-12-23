@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "FlareStack",
+    "title": "Application",
     "version": "0.0.1",
     "description": "To use the API you must first sign-in using the `POST /auth/sign-in` endpoint and collect the **Bearer token** from the response.\n"
   },
@@ -382,14 +382,14 @@
         }
       }
     },
-    "/tenant/{tenantId}/map/{id}": {
+    "/tenant/{tenantId}/aoi/{id}": {
       "get": {
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "tags": ["Map"],
+        "tags": ["Aoi"],
         "parameters": [
           {
             "in": "path",
@@ -414,7 +414,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Map"
+                  "$ref": "#/components/schemas/Aoi"
                 }
               }
             }
@@ -433,7 +433,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": ["Map"],
+        "tags": ["Aoi"],
         "parameters": [
           {
             "in": "path",
@@ -461,7 +461,7 @@
                 "required": ["data"],
                 "properties": {
                   "data": {
-                    "$ref": "#/components/schemas/MapInput"                
+                    "$ref": "#/components/schemas/AoiInput"                
                   }
                 }
               }
@@ -474,7 +474,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Map"
+                  "$ref": "#/components/schemas/Aoi"
                 }
               }
             }
@@ -488,14 +488,14 @@
         }
       }
     },
-    "/tenant/{tenantId}/map": {
+    "/tenant/{tenantId}/aoi": {
       "get": {
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "tags": ["Map"],
+        "tags": ["Aoi"],
         "parameters": [
           {
             "in": "path",
@@ -524,6 +524,16 @@
             "name": "filter[description]",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "filter[estTimeCompleteRange][]",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "integer"
+              }
             }
           },      
           {
@@ -574,7 +584,7 @@
                     "rows": {
                       "type": "array",
                       "items": {
-                        "$ref": "#/components/schemas/Map"
+                        "$ref": "#/components/schemas/Aoi"
                       }
                     },
                     "count": {
@@ -602,7 +612,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": ["Map"],
+        "tags": ["Aoi"],
         "parameters": [
           {
             "in": "path",
@@ -622,7 +632,7 @@
                 "required": ["data"],
                 "properties": {
                   "data": {
-                    "$ref": "#/components/schemas/MapInput"                
+                    "$ref": "#/components/schemas/AoiInput"                
                   }
                 }
               }
@@ -635,7 +645,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Map"
+                  "$ref": "#/components/schemas/Aoi"
                 }
               }
             }
@@ -654,7 +664,7 @@
             "bearerAuth": []
           }
         ],
-        "tags": ["Map"],
+        "tags": ["Aoi"],
         "parameters": [
           {
             "in": "path",
@@ -689,14 +699,14 @@
         }
       }
     },
-    "/tenant/{tenantId}/map/autocomplete": {
+    "/tenant/{tenantId}/aoi/autocomplete": {
       "get": {
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "tags": ["Map"],
+        "tags": ["Aoi"],
         "parameters": [
           {
             "in": "path",
@@ -756,14 +766,14 @@
         }
       }
     },
-    "/tenant/{tenantId}/map/import": {
+    "/tenant/{tenantId}/aoi/import": {
       "post": {
         "security": [
           {
             "bearerAuth": []
           }
         ],
-        "tags": ["Map"],
+        "tags": ["Aoi"],
         "parameters": [
           {
             "in": "path",
@@ -783,7 +793,7 @@
                 "required": ["data", "importHash"],
                 "properties": {
                   "data": {                      
-                    "$ref": "#/components/schemas/MapInput"
+                    "$ref": "#/components/schemas/AoiInput"
                   },
                   "importHash": {
                     "type": "string"
@@ -799,7 +809,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Map"
+                  "$ref": "#/components/schemas/Aoi"
                 }
               }
             }
@@ -2626,7 +2636,7 @@
       }
     },
     "schemas": {
-      "Map": {
+      "Aoi": {
         "allOf": [
           {
             "$ref": "#/components/schemas/GenericEntity"
@@ -2643,15 +2653,18 @@
           "geojson": {
             "type": "string"
           },
-          "preview": {
+          "estTimeComplete": {
+            "type": "integer"
+          },
+          "orders": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/File"
+              "$ref": "#/components/schemas/Order"
             }
           }    
         }
       },
-      "MapInput": {
+      "AoiInput": {
         "type": "object",
         "properties": {
           "name": {
@@ -2663,10 +2676,14 @@
           "geojson": {
             "type": "string"
           },
-          "preview": {
+          "estTimeComplete": {
+            "type": "integer"
+          },
+          "orders": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/FileInput"
+              "type": "string",
+              "format": "uuid"
             }
           }    
         }
@@ -2682,8 +2699,8 @@
           "name": {
             "type": "string"
           },
-          "geojson": {
-            "$ref": "#/components/schemas/Map"
+          "aoi": {
+            "$ref": "#/components/schemas/Aoi"
           },
           "notifyOnComplete": {
             "type": "boolean"
@@ -2699,7 +2716,7 @@
           "name": {
             "type": "string"
           },
-          "geojson": {
+          "aoi": {
             "type": "string",
             "format": "uuid"
           },
@@ -2889,7 +2906,7 @@
             "items": {
               "$ref": "#/components/schemas/TenantUser"
             }
-          }
+          },
         }
       },
       "TenantUser": {

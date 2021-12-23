@@ -34,36 +34,38 @@ const ptBR = {
   },
 
   entities: {
-    map: {
-        name: 'Map',
-        label: 'Maps',
-        menu: 'Maps',
-        exporterFileName: 'Map_exportados',
+    aoi: {
+        name: 'Aoi',
+        label: 'AOIs',
+        menu: 'AOIs',
+        exporterFileName: 'Aoi_exportados',
         list: {
-          menu: 'Maps',
-          title: 'Maps',
+          menu: 'AOIs',
+          title: 'AOIs',
         },
         create: {
-          success: 'Map salvo com sucesso',
+          success: 'Aoi salvo com sucesso',
         },
         update: {
-          success: 'Map salvo com sucesso',
+          success: 'Aoi salvo com sucesso',
         },
         destroy: {
-          success: 'Map deletado com sucesso',
+          success: 'Aoi deletado com sucesso',
         },
         destroyAll: {
-          success: 'Map(s) deletado com sucesso',
+          success: 'Aoi(s) deletado com sucesso',
         },
         edit: {
-          title: 'Editar Map',
+          title: 'Editar Aoi',
         },
         fields: {
           id: 'Id',
           'name': 'Name',
           'description': 'Description',
           'geojson': 'Geojson',
-          'preview': 'Preview',
+          'estTimeCompleteRange': 'Estimated Time to Completion (min)',
+          'estTimeComplete': 'Estimated Time to Completion (min)',
+          'orders': 'Orders',
           createdAt: 'Criado em',
           updatedAt: 'Atualizado em',
           createdAtRange: 'Criado em',
@@ -78,14 +80,14 @@ const ptBR = {
 
         },
         new: {
-          title: 'Novo Map',
+          title: 'Novo Aoi',
         },
         view: {
-          title: 'Visualizar Map',
+          title: 'Visualizar Aoi',
         },
         importer: {
-          title: 'Importar Maps',
-          fileName: 'map_template_importacao',
+          title: 'Importar AOIs',
+          fileName: 'aoi_template_importacao',
           hint:
             'Arquivos/Imagens devem ser as URLs dos arquivos, separados por espaço. Relacionamentos devem ser os IDs separados por espaço.',
         },
@@ -118,7 +120,7 @@ const ptBR = {
         fields: {
           id: 'Id',
           'name': 'Name',
-          'geojson': 'Map Layer',
+          'aoi': 'AOI',
           'notifyOnComplete': 'Email Notification',
           'ready': 'Ready',
           createdAt: 'Criado em',

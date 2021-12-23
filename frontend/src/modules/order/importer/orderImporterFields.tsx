@@ -13,10 +13,10 @@ export default [
     ),
   },
   {
-    name: 'geojson',
-    label: i18n('entities.order.fields.geojson'),
+    name: 'aoi',
+    label: i18n('entities.order.fields.aoi'),
     schema: schemas.relationToOne(
-      i18n('entities.order.fields.geojson'),
+      i18n('entities.order.fields.aoi'),
       {
         "required": true
       },
