@@ -142,7 +142,7 @@ function MapToolbar(props) {
         </Button>
       )}
 
-      {hasPermissionToImport && (
+{/*       {hasPermissionToImport && (
         <Button
           variant="contained"
           color="primary"
@@ -153,7 +153,7 @@ function MapToolbar(props) {
         >
           {i18n('common.import')}
         </Button>
-      )}
+      )} */}
 
       {renderDestroyButton()}
 

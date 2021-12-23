@@ -1,11 +1,31 @@
 {
   "npm.packageManager": "yarn",
-  //"typescript.updateImportsOnFileMove.enabled": "never",
-  //"typescript.preferences.importModuleSpecifier": "non-relative",
-  "workbench.colorCustomizations": {
-    "titleBar.activeForeground": "#000",
-    "titleBar.inactiveForeground": "#000000CC",
-    "titleBar.activeBackground": "#ffc600",
-    "titleBar.inactiveBackground": "#ffc600CC"
+  "[javascript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "[typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "javascript.preferences.importModuleSpecifier": "project-relative",
+  "javascript.referencesCodeLens.enabled": true,
+  //"javascript.referencesCodeLens.showOnAllFunctions": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "javascript.preferences.importModuleSpecifierEnding": "minimal",
+  "typescript.preferences.importModuleSpecifierEnding": "minimal",
+  "typescript.preferences.importModuleSpecifier": "project-relative",
+  "typescript.referencesCodeLens.enabled": true,
+  // "typescript.referencesCodeLens.showOnAllFunctions": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "workbench.colorCustomizations": {
+    "titleBar.activeBackground": "#2196f3",
+    "titleBar.activeForeground": "#000",
+    "titleBar.inactiveBackground": "#2196f3",
+    "titleBar.inactiveForeground": "#000000CC"
+  }
 }

@@ -7,18 +7,13 @@ const useStyles = makeStyles({
     width: '100%',
   },
 });
-function valuetext(value) {
-  return `${value} meters`;
-}
-export default function DiscreteSlider() {
+const valuetext = (value) => `${value} meters`;
+function GeoSlider() {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Typography
-        id="discrete-slider-small-steps"
-        gutterBottom
-      >
-      Select Layer Buffer (m)
+      <Typography id="discrete-slider-small-steps" gutterBottom>
+        Select Layer Buffer (m)
       </Typography>
       <Slider
         defaultValue={0}
@@ -33,3 +28,4 @@ export default function DiscreteSlider() {
     </div>
   );
 }
+export default GeoSlider;

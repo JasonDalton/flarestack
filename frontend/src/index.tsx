@@ -4,7 +4,6 @@ import { i18n, init as i18nInit } from 'src/i18n';
 import AuthService from 'src/modules/auth/authService';
 import { AuthToken } from './modules/auth/authToken';
 import TenantService from './modules/tenant/tenantService';
-
 (async function () {
   const isSocialOnboardRequested = AuthService.isSocialOnboardRequested();
   AuthToken.applyFromLocationUrlIfExists();
@@ -13,13 +12,10 @@ import TenantService from './modules/tenant/tenantService';
     await AuthService.socialOnboard();
   }
   await i18nInit();
-
   const App = require('./App').default;
   document.title = i18n('app.title');
   ReactDOM.render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>,
+      <App />,
     document.getElementById('root')
   );
 })();

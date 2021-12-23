@@ -4,9 +4,7 @@ import SaveIcon from '@material-ui/icons/Save';
 import UndoIcon from '@material-ui/icons/Undo';
 import React, { useState } from 'react';
 import { i18n } from 'src/i18n';
-import FormWrapper, {
-  FormButtons,
-} from 'src/view/shared/styles/FormWrapper';
+import FormWrapper, { FormButtons } from 'src/view/shared/styles/FormWrapper';
 import { useForm, FormProvider } from 'react-hook-form';
 import * as yup from 'yup';
 import yupFormSchemas from 'src/modules/shared/yup/yupFormSchemas';
@@ -15,30 +13,21 @@ import InputFormItem from 'src/view/shared/form/items/InputFormItem';
 import TextAreaFormItem from 'src/view/shared/form/items/TextAreaFormItem';
 import Storage from 'src/security/storage';
 import ImagesFormItem from 'src/view/shared/form/items/ImagesFormItem';
-import MapEl from 'src/components/MapEl';
+//import GeoMap from 'src/view/draw/GeoMap';
 const schema = yup.object().shape({
-  name: yupFormSchemas.string(
-    i18n('entities.map.fields.name'),
-    {
-      "required": true
-    },
-  ),
+  name: yupFormSchemas.string(i18n('entities.map.fields.name'), {
+    required: true,
+  }),
   description: yupFormSchemas.string(
     i18n('entities.map.fields.description'),
     {},
   ),
-  geojson: yupFormSchemas.string(
-    i18n('entities.map.fields.geojson'),
-    {
-      "required": true
-    },
-  ),
-  preview: yupFormSchemas.images(
-    i18n('entities.map.fields.preview'),
-    {
-      "max": 1
-    },
-  ),
+  geojson: yupFormSchemas.string(i18n('entities.map.fields.geojson'), {
+    required: true,
+  }),
+  preview: yupFormSchemas.images(i18n('entities.map.fields.preview'), {
+    max: 1,
+  }),
 });
 function HomeForm(props) {
   const [initialValues] = useState(() => {
@@ -69,10 +58,8 @@ function HomeForm(props) {
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <Grid spacing={2} container>
-
-            <Grid item lg={12} xs={12}>            
-              <MapEl
-              />
+            <Grid item lg={12} xs={12}>
+            
             </Grid>
             <Grid item lg={12} xs={12}>
               <InputFormItem
@@ -111,9 +98,7 @@ function HomeForm(props) {
           </Grid>
           <FormButtons
             style={{
-              flexDirection: modal
-                ? 'row-reverse'
-                : undefined,
+              flexDirection: modal ? 'row-reverse' : undefined,
             }}
           >
             <Button

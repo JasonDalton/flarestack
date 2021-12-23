@@ -1,12 +1,11 @@
-import { Button, Grid } from '@material-ui/core';
+import { Button, Grid, Hidden, Box } from '@material-ui/core';
+import { display } from '@material-ui/system';
 import CloseIcon from '@material-ui/icons/Close';
 import SaveIcon from '@material-ui/icons/Save';
 import UndoIcon from '@material-ui/icons/Undo';
 import React, { useState } from 'react';
 import { i18n } from 'src/i18n';
-import FormWrapper, {
-  FormButtons,
-} from 'src/view/shared/styles/FormWrapper';
+import FormWrapper, { FormButtons } from 'src/view/shared/styles/FormWrapper';
 import { useForm, FormProvider } from 'react-hook-form';
 import * as yup from 'yup';
 import yupFormSchemas from 'src/modules/shared/yup/yupFormSchemas';
@@ -15,30 +14,21 @@ import InputFormItem from 'src/view/shared/form/items/InputFormItem';
 import TextAreaFormItem from 'src/view/shared/form/items/TextAreaFormItem';
 import Storage from 'src/security/storage';
 import ImagesFormItem from 'src/view/shared/form/items/ImagesFormItem';
-
+import LMap from './LMap';
 const schema = yup.object().shape({
-  name: yupFormSchemas.string(
-    i18n('entities.map.fields.name'),
-    {
-      "required": true
-    },
-  ),
+  name: yupFormSchemas.string(i18n('entities.map.fields.name'), {
+    required: true,
+  }),
   description: yupFormSchemas.string(
     i18n('entities.map.fields.description'),
     {},
   ),
-  geojson: yupFormSchemas.string(
-    i18n('entities.map.fields.geojson'),
-    {
-      "required": true
-    },
-  ),
-  preview: yupFormSchemas.images(
-    i18n('entities.map.fields.preview'),
-    {
-      "max": 1
-    },
-  ),
+  geojson: yupFormSchemas.string(i18n('entities.map.fields.geojson'), {
+    required: true,
+  }),
+  preview: yupFormSchemas.images(i18n('entities.map.fields.preview'), {
+    max: 1,
+  }),
 });
 
 function MapForm(props) {
@@ -79,41 +69,37 @@ function MapForm(props) {
             <Grid item lg={7} md={8} sm={12} xs={12}>
               <InputFormItem
                 name="name"
-                label={i18n('entities.map.fields.name')}  
+                label={i18n('entities.map.fields.name')}
                 required={true}
-              autoFocus
+                autoFocus
               />
             </Grid>
             <Grid item lg={7} md={8} sm={12} xs={12}>
               <TextAreaFormItem
                 name="description"
                 label={i18n('entities.map.fields.description')}
-              placeholder={i18n('entities.map.placeholders.description')}  
+                placeholder={i18n('entities.map.placeholders.description')}
                 required={false}
               />
             </Grid>
+
+            <Grid item lg={7} md={8} sm={12} xs={12}>
+              <LMap />
+            </Grid>
+            {/*   <Box component="div" visibility="hidden"> */}
+
             <Grid item lg={7} md={8} sm={12} xs={12}>
               <InputFormItem
                 name="geojson"
-                label={i18n('entities.map.fields.geojson')}  
+                label={i18n('entities.map.fields.geojson')}
                 required={true}
               />
             </Grid>
-            <Grid item lg={7} md={8} sm={12} xs={12}>
-              <ImagesFormItem
-                name="preview"
-                label={i18n('entities.map.fields.preview')}
-                required={false}
-                storage={Storage.values.mapPreview}
-                max={1}
-              />
-            </Grid>
+            {/*  </Box> */}
           </Grid>
           <FormButtons
             style={{
-              flexDirection: modal
-                ? 'row-reverse'
-                : undefined,
+              flexDirection: modal ? 'row-reverse' : undefined,
             }}
           >
             <Button

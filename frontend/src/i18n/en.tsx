@@ -565,6 +565,24 @@ const en = {
     labelDisplayedRows: '{0}-{1} of {2}',
     labelRowsPerPage: 'Per page:',
   },
+
+
+  draw: {
+    meny: 'New Order',
+    title: 'Draw',
+    menu: 'Draw',
+    save: {
+      success:
+        'Geojson successfully saved.',
+    },
+    fields: {
+      primary: 'Primary Color',
+      secondary: 'Secondary Color',
+      logos: 'Logo',
+      backgroundImages: 'Background Images',
+      shade: 'Shade',
+    },
+  },
 };
 
 export default en;

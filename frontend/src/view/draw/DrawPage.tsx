@@ -5,11 +5,27 @@ import { i18n } from 'src/i18n';
 import actions from 'src/modules/map/form/mapFormActions';
 import selectors from 'src/modules/map/form/mapFormSelectors';
 import { getHistory } from 'src/modules/store';
-import HomeForm from 'src/view/home/form/HomeForm';
+import HomeForm from 'src/view/draw/DrawForm';
 import ContentWrapper from 'src/view/layout/styles/ContentWrapper';
 import Breadcrumb from 'src/view/shared/Breadcrumb';
 import Spinner from 'src/view/shared/Spinner';
 import PageTitle from 'src/view/shared/styles/PageTitle';
+
+
+import { makeStyles } from '@material-ui/core';
+
+export const useStyles = makeStyles((theme) => ({
+  chartWrapper: {
+    border: '1px solid rgb(224, 224, 224)',
+    borderRadius: '5px',
+    backgroundColor: '#fff',
+    padding: theme.spacing(2),
+  },
+  mapWrapper: {
+    height: '50vh',
+    width: '100%',
+  },
+}));
 
 function HomeFormPage(props) {
   const [dispatched, setDispatched] = useState(false);

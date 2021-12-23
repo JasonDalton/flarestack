@@ -46,11 +46,11 @@ app.use(
   bodyParser.json({
     verify: function (req, res, buf) {
       const url = (<any>req).originalUrl;
-      if (url.startsWith('/api/plan/stripe/webhook')) {
+     // if (url.startsWith('/api/plan/stripe/webhook')) {
         // Stripe Webhook needs the body raw in order
         // to validate the request
-        (<any>req).rawBody = buf.toString();
-      }
+      //  (<any>req).rawBody = buf.toString();
+      //}
     },
   }),
 );

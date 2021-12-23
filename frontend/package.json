@@ -14,7 +14,7 @@
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
-    "@turf/turf": "^6.5.0",
+    "@turf/area": "^6.5.0",
     "@types/jest": "^26.0.15",
     "@types/node": "^12.0.0",
     "@types/react": "^17.0.0",
@@ -27,6 +27,7 @@
     "enzyme-adapter-react-16": "1.15.5",
     "file-saver": "2.0.5",
     "filesize": "6.1.0",
+    "leaflet": "^1.7.1",
     "lodash": "4.17.20",
     "mapbox-gl": "^2.6.1",
     "mapbox-gl-style-switcher": "^1.0.10",
@@ -78,7 +79,8 @@
       "@typescript-eslint/no-unused-vars": "off",
       "no-unused-vars": "off",
       "react-hooks/exhaustive-deps": "off",
-      "no-unreachable": "off"
+      "no-unreachable": "off",
+      "no-undef": "off"
     }
   },
   "browserslist": {
@@ -94,6 +96,7 @@
     ]
   },
   "devDependencies": {
+    "@turf/turf": "^6.5.0",
     "cross-env": "^7.0.3"
   }
 }
