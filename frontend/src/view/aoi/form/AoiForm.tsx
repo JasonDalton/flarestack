@@ -15,12 +15,12 @@ import InputFormItem from 'src/view/shared/form/items/InputFormItem';
 import TextAreaFormItem from 'src/view/shared/form/items/TextAreaFormItem';
 import InputNumberFormItem from 'src/view/shared/form/items/InputNumberFormItem';
 import OrderAutocompleteFormItem from 'src/view/order/autocomplete/OrderAutocompleteFormItem';
-
+import LMap from 'src/view/map/LMap';
 const schema = yup.object().shape({
   name: yupFormSchemas.string(
     i18n('entities.aoi.fields.name'),
     {
-      "required": true
+      required: true,
     },
   ),
   description: yupFormSchemas.string(
@@ -30,7 +30,7 @@ const schema = yup.object().shape({
   geojson: yupFormSchemas.string(
     i18n('entities.aoi.fields.geojson'),
     {
-      "required": true
+      required: true,
     },
   ),
   estTimeComplete: yupFormSchemas.integer(
@@ -78,39 +78,48 @@ function AoiForm(props) {
     <FormWrapper>
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
+          <Grid item lg={7} md={8} sm={12} xs={12}>
+            <LMap />
+          </Grid>
           <Grid spacing={2} container>
             <Grid item lg={7} md={8} sm={12} xs={12}>
               <InputFormItem
                 name="name"
-                label={i18n('entities.aoi.fields.name')}  
+                label={i18n('entities.aoi.fields.name')}
                 required={true}
-              autoFocus
+                autoFocus
               />
             </Grid>
             <Grid item lg={7} md={8} sm={12} xs={12}>
               <TextAreaFormItem
                 name="description"
-                label={i18n('entities.aoi.fields.description')}
-              placeholder={i18n('entities.aoi.placeholders.description')}  
+                label={i18n(
+                  'entities.aoi.fields.description',
+                )}
+                placeholder={i18n(
+                  'entities.aoi.placeholders.description',
+                )}
                 required={false}
               />
             </Grid>
             <Grid item lg={7} md={8} sm={12} xs={12}>
               <InputFormItem
                 name="geojson"
-                label={i18n('entities.aoi.fields.geojson')}  
+                label={i18n('entities.aoi.fields.geojson')}
                 required={true}
               />
             </Grid>
             <Grid item lg={7} md={8} sm={12} xs={12}>
               <InputNumberFormItem
                 name="estTimeComplete"
-                label={i18n('entities.aoi.fields.estTimeComplete')}  
+                label={i18n(
+                  'entities.aoi.fields.estTimeComplete',
+                )}
                 required={false}
               />
             </Grid>
             <Grid item lg={7} md={8} sm={12} xs={12}>
-              <OrderAutocompleteFormItem  
+              <OrderAutocompleteFormItem
                 name="orders"
                 label={i18n('entities.aoi.fields.orders')}
                 required={false}
