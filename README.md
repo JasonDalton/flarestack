@@ -1,6 +1,7 @@
 # FlareStack
 
 Version: 0.0.1
+Additional Documentation: https://docs.scaffoldhub.io
 
 ## Overview
 
@@ -9,6 +10,7 @@ Version: 0.0.1
 * Storage
 * Analytics
 * Functions
+
 
 ## Setup & Start MongoDB locally (development)
 
