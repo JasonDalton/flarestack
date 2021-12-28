@@ -18,3 +18,5 @@ import TenantService from './modules/tenant/tenantService';
   document.title = i18n('app.title');
   ReactDOM.render(<App />, document.getElementById('root'));
 })();
+
+

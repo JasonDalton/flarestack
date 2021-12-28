@@ -44,19 +44,19 @@ const en = {
           title: 'AOIs',
         },
         create: {
-          success: 'Aoi successfully saved',
+          success: 'AOI successfully saved',
         },
         update: {
-          success: 'Aoi successfully saved',
+          success: 'AOI successfully saved',
         },
         destroy: {
-          success: 'Aoi successfully deleted',
+          success: 'AOI successfully deleted',
         },
         destroyAll: {
           success: 'Aoi(s) successfully deleted',
         },
         edit: {
-          title: 'Edit Aoi',
+          title: 'Edit AOI',
         },
         fields: {
           id: 'Id',
@@ -80,10 +80,10 @@ const en = {
 
         },
         new: {
-          title: 'New Aoi',
+          title: 'New AOI',
         },
         view: {
-          title: 'View Aoi',
+          title: 'View AOI',
         },
         importer: {
           title: 'Import AOIs',

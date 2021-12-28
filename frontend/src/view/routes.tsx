@@ -5,9 +5,10 @@ const permissions = Permissions.values;
 const privateRoutes = [
   {
     path: '/',
-    loader: () =>
-      import('src/view/dashboard/DashboardPage'),
-    permissionRequired: null,
+    //loader: () => import('src/view/dashboard/DashboardPage'),
+
+    loader: () => import('src/view/aoi/list/AoiListPage'),
+    permissionRequired: permissions.aoiRead,
     exact: true,
   },
 
@@ -101,41 +102,35 @@ const privateRoutes = [
       import('src/view/settings/SettingsFormPage'),
     permissionRequired: permissions.settingsEdit,
   },
-  
+
   {
     path: '/aoi',
-    loader: () =>
-      import('src/view/aoi/list/AoiListPage'),
+    loader: () => import('src/view/aoi/list/AoiListPage'),
     permissionRequired: permissions.aoiRead,
     exact: true,
   },
   {
     path: '/aoi/new',
-    loader: () =>
-      import('src/view/aoi/form/AoiFormPage'),
+    loader: () => import('src/view/aoi/form/AoiFormPage'),
     permissionRequired: permissions.aoiCreate,
     exact: true,
   },
   {
     path: '/aoi/importer',
     loader: () =>
-      import(
-        'src/view/aoi/importer/AoiImporterPage'
-      ),
+      import('src/view/aoi/importer/AoiImporterPage'),
     permissionRequired: permissions.aoiImport,
     exact: true,
   },
   {
     path: '/aoi/:id/edit',
-    loader: () =>
-      import('src/view/aoi/form/AoiFormPage'),
+    loader: () => import('src/view/aoi/form/AoiFormPage'),
     permissionRequired: permissions.aoiEdit,
     exact: true,
   },
   {
     path: '/aoi/:id',
-    loader: () =>
-      import('src/view/aoi/view/AoiViewPage'),
+    loader: () => import('src/view/aoi/view/AoiViewPage'),
     permissionRequired: permissions.aoiRead,
     exact: true,
   },
@@ -157,9 +152,7 @@ const privateRoutes = [
   {
     path: '/order/importer',
     loader: () =>
-      import(
-        'src/view/order/importer/OrderImporterPage'
-      ),
+      import('src/view/order/importer/OrderImporterPage'),
     permissionRequired: permissions.orderImport,
     exact: true,
   },

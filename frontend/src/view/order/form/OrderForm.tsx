@@ -118,7 +118,7 @@ function OrderForm(props) {
               startIcon={<SaveIcon />}
               size="small"
             >
-              {i18n('common.save')}
+              Submit
             </Button>
 
             <Button

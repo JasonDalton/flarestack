@@ -7,20 +7,22 @@ import PersonIcon from '@material-ui/icons/Person';
 import HistoryIcon from '@material-ui/icons/History';
 import SettingsIcon from '@material-ui/icons/Settings';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import MapIcon from '@material-ui//icons/Map';
+import ListIcon from '@material-ui/icons/List';
 import config from 'src/config';
 
 const permissions = Permissions.values;
 
 export default [
-  {
+  /*   {
     path: '/',
     exact: true,
-    icon: <DashboardIcon />,
+    icon: <MapIcon />,
     label: i18n('dashboard.menu'),
     permissionRequired: null,
-  },
+  }, */
 
-  config.isPlanEnabled && {
+  /*   config.isPlanEnabled && {
     path: '/plan',
     permissionRequired: permissions.planRead,
     icon: <CreditCardOutlinedIcon />,
@@ -46,19 +48,26 @@ export default [
     icon: <SettingsIcon />,
     label: i18n('settings.menu'),
     permissionRequired: permissions.settingsEdit,
-  },
-
+  }, */
+  /* 
   {
     path: '/aoi',
     permissionRequired: permissions.aoiRead,
     icon: <ChevronRightIcon />,
     label: i18n('entities.aoi.menu'),
-  },
+  }, */
 
+  {
+    path: '/',
+    exact: true,
+    icon: <MapIcon />,
+    label: i18n('entities.aoi.menu'),
+    permissionRequired: permissions.aoiRead,
+  },
   {
     path: '/order',
     permissionRequired: permissions.orderRead,
-    icon: <ChevronRightIcon />,
+    icon: <ListIcon />,
     label: i18n('entities.order.menu'),
   },
 ].filter(Boolean);

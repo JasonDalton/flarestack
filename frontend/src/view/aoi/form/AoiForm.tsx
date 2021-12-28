@@ -15,7 +15,7 @@ import InputFormItem from 'src/view/shared/form/items/InputFormItem';
 import TextAreaFormItem from 'src/view/shared/form/items/TextAreaFormItem';
 import InputNumberFormItem from 'src/view/shared/form/items/InputNumberFormItem';
 import OrderAutocompleteFormItem from 'src/view/order/autocomplete/OrderAutocompleteFormItem';
-import LMap from 'src/view/map/LMap';
+import MapView from 'src/view/map/MapView';
 const schema = yup.object().shape({
   name: yupFormSchemas.string(
     i18n('entities.aoi.fields.name'),
@@ -79,7 +79,7 @@ function AoiForm(props) {
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <Grid item lg={7} md={8} sm={12} xs={12}>
-            <LMap />
+            <MapView />
           </Grid>
           <Grid spacing={2} container>
             <Grid item lg={7} md={8} sm={12} xs={12}>
