@@ -12,33 +12,6 @@ const useStyles = makeStyles({
   },
 });
 
-//var myLayer = L.geoJSON().addTo(leafletContainer);
-
-/* function valuetext(value) {
-  console.log(value);
-  leafletContainer.pm.getGeomanLayers().map((layer) => {
-    const geojson1 = layer.toGeoJSON();
-
-    const geojson = turfBuffer(
-      geojson1,
-      value,
-      'kilometers',
-    );
-    const area = (turfArea(geojson) / 1000000).toFixed(2);
-    geojson.properties.area = area;
-    layer.bindPopup(`Area: ${area} sq. km`);
-    layer.openPopup();
-    document.getElementById('geojson').value =
-      JSON.stringify(geojson);
-
-    document.getElementById('estTimeComplete').value =
-      Math.round((area * 9) / 60);
-  });
-
-  return `${value} km.`;
-}
- */
-
 function valuetext(value) {
   return `${value}°C`;
 }
@@ -52,10 +25,10 @@ function GeoSlider() {
     setValue(newValue);
 
     console.log('handleChange');
-    return;
+
     leafletContainer.pm.getGeomanLayers().map((layer) => {
       const geojson1 = layer.toGeoJSON();
-
+      
       const geojson = turfBuffer(
         geojson1,
         value,
