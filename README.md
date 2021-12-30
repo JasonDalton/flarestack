@@ -19,7 +19,7 @@ Additional Documentation: https://docs.scaffoldhub.io
 docker-compose --file mongo-stack.dev.yml up -d mongo
 
 # optionally start it with Mongo Express (http://localhost:8081 )to debug
-# docker-compose --file mongo-stackyml --profile debug up mongo
+# docker-compose --file mongo-stack.yml up mongo --profile debug
 
 ```
 
@@ -41,7 +41,7 @@ cp backend/.env.example backend/.env
 ## Start backend/frontend
 
 ```
-# Install dependencies
+# Start backend/fronted
 (cd backend && npm start)
 (cd frontend && npm start)
 ```

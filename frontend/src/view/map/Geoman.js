@@ -11,6 +11,7 @@ const Geoman = () => {
     const leafletContainer =
       context.layerContainer || context.map;
     window.leafletContainer = leafletContainer;
+    let L = window.L
     window.myLayer = L.geoJSON().addTo(leafletContainer);
     leafletContainer.pm.addControls({
       drawMarker: false,
