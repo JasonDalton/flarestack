@@ -73,10 +73,13 @@ function OrderListTable(props) {
   );
 
   const submitJob = (row) => {
+    console.log(row)
     let geojson = row.aoi.geojson;
     let currentUsersEmail = currentUser.email;
     Axios.post(
       'http://52.206.173.51:5000/submitjob?job_uid=' +
+        row._id +
+        "&job_name=" +
         row.name +
         '&email_address=' +
         currentUsersEmail,
