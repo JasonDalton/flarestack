@@ -4,6 +4,8 @@ import {
   TileLayer,
   Polygon,
 } from 'react-leaflet';
+
+import L from "leaflet"
 import Geoman from './Geoman';
 import './styles.css';
 //import GeoSlider from './GeoSlider';
@@ -35,7 +37,7 @@ function GeoSlider() {
 
     console.log('handleChange');
 
-    leafletContainer.pm.getGeomanLayers().map((layer) => {
+    L.leafletContainer.pm.getGeomanLayers().map((layer) => {
       const geojson1 = layer.toGeoJSON();
 
       const geojson = turfBuffer(
@@ -43,7 +45,7 @@ function GeoSlider() {
         value,
         'kilometers',
       );
-      const area = (turfArea(geojson) / 1000000).toFixed(2);
+      const area = (L.turfArea(geojson) / 1000000).toFixed(2);
       geojson.properties.area = area;
       layer.bindPopup(`Area: ${area} sq. km`);
       layer.openPopup();
