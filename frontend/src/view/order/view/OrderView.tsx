@@ -21,7 +21,9 @@ function OrderView(props) {
         />
 
         <TextViewItem
-          label={i18n('entities.order.fields.notifyOnComplete')}
+          label={i18n(
+            'entities.order.fields.notifyOnComplete',
+          )}
           value={
             record.notifyOnComplete
               ? i18n('common.yes')
@@ -36,7 +38,7 @@ function OrderView(props) {
               ? i18n('common.yes')
               : i18n('common.no')
           }
-        />        
+        />
       </div>
     );
   };

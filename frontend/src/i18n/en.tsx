@@ -35,120 +35,113 @@ const en = {
 
   entities: {
     aoi: {
-        name: 'aoi',
-        label: 'AOIs',
+      name: 'aoi',
+      label: 'AOIs',
+      menu: 'AOIs',
+      exporterFileName: 'aoi_export',
+      list: {
         menu: 'AOIs',
-        exporterFileName: 'aoi_export',
-        list: {
-          menu: 'AOIs',
-          title: 'AOIs',
-        },
-        create: {
-          success: 'AOI successfully saved',
-        },
-        update: {
-          success: 'AOI successfully saved',
-        },
-        destroy: {
-          success: 'AOI successfully deleted',
-        },
-        destroyAll: {
-          success: 'Aoi(s) successfully deleted',
-        },
-        edit: {
-          title: 'Edit AOI',
-        },
-        fields: {
-          id: 'Id',
-          'name': 'Name',
-          'description': 'Description',
-          'geojson': 'Geojson',
-          'estTimeCompleteRange': 'Estimated Time to Completion (min)',
-          'estTimeComplete': 'Estimated Time to Completion (min)',
-          'orders': 'Orders',
-          createdAt: 'Created at',
-          updatedAt: 'Updated at',
-          createdAtRange: 'Created at',
-        },
-        enumerators: {
-
-        },
-        placeholders: {
-          'description': 'A short description of your area',
-        },
-        hints: {
-
-        },
-        new: {
-          title: 'New AOI',
-        },
-        view: {
-          title: 'View AOI',
-        },
-        importer: {
-          title: 'Import AOIs',
-          fileName: 'aoi_import_template',
-          hint:
-            'Files/Images columns must be the URLs of the files separated by space.',
-        },
+        title: 'AOIs',
       },
+      create: {
+        success: 'AOI successfully saved',
+      },
+      update: {
+        success: 'AOI successfully saved',
+      },
+      destroy: {
+        success: 'AOI successfully deleted',
+      },
+      destroyAll: {
+        success: 'Aoi(s) successfully deleted',
+      },
+      edit: {
+        title: 'Edit AOI',
+      },
+      fields: {
+        id: 'Id',
+        name: 'Name',
+        description: 'Description',
+        geojson: 'Geojson',
+        estTimeCompleteRange:
+          'Estimated Time to Completion (min)',
+        estTimeComplete:
+          'Estimated Time to Completion (min)',
+        orders: 'Orders',
+        createdAt: 'Created at',
+        updatedAt: 'Updated at',
+        createdAtRange: 'Created at',
+      },
+      enumerators: {},
+      placeholders: {
+        description: 'A short description of your area',
+      },
+      hints: {},
+      new: {
+        title: 'New AOI',
+      },
+      view: {
+        title: 'View AOI',
+      },
+      importer: {
+        title: 'Import AOIs',
+        fileName: 'aoi_import_template',
+        hint: 'Files/Images columns must be the URLs of the files separated by space.',
+      },
+    },
 
     order: {
-        name: 'order',
-        label: 'Orders',
+      name: 'order',
+      label: 'Orders',
+      menu: 'Orders',
+      exporterFileName: 'order_export',
+      list: {
         menu: 'Orders',
-        exporterFileName: 'order_export',
-        list: {
-          menu: 'Orders',
-          title: 'Orders',
-        },
-        create: {
-          success: 'Order successfully saved',
-        },
-        update: {
-          success: 'Order successfully saved',
-        },
-        destroy: {
-          success: 'Order successfully deleted',
-        },
-        destroyAll: {
-          success: 'Order(s) successfully deleted',
-        },
-        edit: {
-          title: 'Edit Order',
-        },
-        fields: {
-          id: 'Id',
-          'name': 'Name',
-          'aoi': 'AOI',
-          'notifyOnComplete': 'Email Notification',
-          'ready': 'Ready',
-          createdAt: 'Created at',
-          updatedAt: 'Updated at',
-          createdAtRange: 'Created at',
-        },
-        enumerators: {
-
-        },
-        placeholders: {
-
-        },
-        hints: {
-
-        },
-        new: {
-          title: 'New Order',
-        },
-        view: {
-          title: 'View Order',
-        },
-        importer: {
-          title: 'Import Orders',
-          fileName: 'order_import_template',
-          hint:
-            'Files/Images columns must be the URLs of the files separated by space.',
-        },
+        title: 'Orders',
       },
+      create: {
+        success: 'Order successfully saved',
+      },
+      update: {
+        success: 'Order successfully saved',
+      },
+      destroy: {
+        success: 'Order successfully deleted',
+      },
+      destroyAll: {
+        success: 'Order(s) successfully deleted',
+      },
+      edit: {
+        title: 'Edit Order',
+      },
+      run: {
+        title: 'Run Order',
+      },
+      fields: {
+        id: 'Id',
+        name: 'Name',
+        aoi: 'AOI',
+        notifyOnComplete: 'Email Notification',
+        ready: 'Ready',
+        createdAt: 'Created at',
+        updatedAt: 'Updated at',
+        createdAtRange: 'Created at',
+      },
+      enumerators: {},
+      placeholders: {},
+      hints: {},
+      new: {
+        title: 'New Order',
+      },
+      view: {
+        title: 'View Order',
+      },
+      importer: {
+        title: 'Import Orders',
+        fileName: 'order_import_template',
+        hint: 'Files/Images columns must be the URLs of the files separated by space.',
+      },
+    },
   },
 
   auth: {
@@ -274,8 +267,7 @@ const en = {
     importer: {
       title: 'Import Users',
       fileName: 'users_import_template',
-      hint:
-        'Files/Images columns must be the URLs of the files separated by space. Relationships must be the ID of the referenced records separated by space. Roles must be the role ids separated by space.',
+      hint: 'Files/Images columns must be the URLs of the files separated by space. Relationships must be the ID of the referenced records separated by space. Roles must be the role ids separated by space.',
     },
     errors: {
       userAlreadyExists:
@@ -332,8 +324,7 @@ const en = {
     },
     select: 'Select Workspace',
     validation: {
-      url:
-        'Your workspace URL can only contain lowercase letters, numbers and dashes (and must start with a letter or number).',
+      url: 'Your workspace URL can only contain lowercase letters, numbers and dashes (and must start with a letter or number).',
     },
   },
 
@@ -447,7 +438,7 @@ const en = {
     error:
       'Sorry, this operation is not allowed in preview mode.',
   },
-  
+
   // See https://github.com/jquense/yup#using-a-custom-locale-dictionary
   /* eslint-disable */
   validation: {
@@ -477,8 +468,7 @@ const en = {
       selected: '${path} must be selected',
     },
     number: {
-      min:
-        '${path} must be greater than or equal to ${min}',
+      min: '${path} must be greater than or equal to ${min}',
       max: '${path} must be less than or equal to ${max}',
       lessThan: '${path} must be less than ${less}',
       moreThan: '${path} must be greater than ${more}',
@@ -501,8 +491,7 @@ const en = {
         min === 1
           ? `${path} is required`
           : `${path} field must have at least ${min} items`,
-      max:
-        '${path} field must have less than or equal to ${max} items',
+      max: '${path} field must have less than or equal to ${max} items',
     },
   },
   /* eslint-disable */
@@ -531,8 +520,7 @@ const en = {
     },
     form: {
       downloadTemplate: 'Download the template',
-      hint:
-        'Click or drag the file to this area to continue',
+      hint: 'Click or drag the file to this area to continue',
     },
     list: {
       discardConfirm:

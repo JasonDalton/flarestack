@@ -8,6 +8,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
+import SendIcon from '@material-ui/icons/Send';
 import EditIcon from '@material-ui/icons/Edit';
 import SearchIcon from '@material-ui/icons/Search';
 import React, { useState } from 'react';
@@ -19,17 +20,21 @@ import destroyActions from 'src/modules/order/destroy/orderDestroyActions';
 import destroySelectors from 'src/modules/order/destroy/orderDestroySelectors';
 import actions from 'src/modules/order/list/orderListActions';
 import selectors from 'src/modules/order/list/orderListSelectors';
+import authSelectors from 'src/modules/auth/authSelectors';
 import ConfirmModal from 'src/view/shared/modals/ConfirmModal';
 import Pagination from 'src/view/shared/table/Pagination';
 import Spinner from 'src/view/shared/Spinner';
 import TableCellCustom from 'src/view/shared/table/TableCellCustom';
+import Axios from 'axios';
 
+Axios.defaults.headers.post['Content-Type'] =
+  'application/json;charset=UTF-8';
+Axios.defaults.headers.post['Access-Control-Allow-Origin'] =
+  '*';
 
 function OrderListTable(props) {
-  const [
-    recordIdToDestroy,
-    setRecordIdToDestroy,
-  ] = useState(null);
+  const [recordIdToDestroy, setRecordIdToDestroy] =
+    useState(null);
   const dispatch = useDispatch();
 
   const findLoading = useSelector(selectors.selectLoading);
@@ -61,6 +66,28 @@ function OrderListTable(props) {
 
   const doOpenDestroyConfirmModal = (id) => {
     setRecordIdToDestroy(id);
+  };
+
+  const currentUser = useSelector(
+    authSelectors.selectCurrentUser,
+  );
+
+  const submitJob = (row) => {
+    let geojson = row.aoi.geojson;
+    let currentUsersEmail = currentUser.email;
+    Axios.post(
+      'http://52.206.173.51:5000/submitjob?job_uid=' +
+        row.name +
+        '&email_address=' +
+        currentUsersEmail,
+      geojson,
+    )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log('error: ', error);
+      });
   };
 
   const doCloseDestroyConfirmModal = () => {
@@ -131,9 +158,7 @@ function OrderListTable(props) {
                 hasRows={hasRows}
                 sorter={sorter}
                 name={'name'}
-                label={i18n(
-                  'entities.order.fields.name',
-                )}
+                label={i18n('entities.order.fields.name')}
               />
               <TableCellCustom
                 onSort={doChangeSort}
@@ -149,10 +174,8 @@ function OrderListTable(props) {
                 hasRows={hasRows}
                 sorter={sorter}
                 name={'ready'}
-                label={i18n(
-                  'entities.order.fields.ready',
-                )}
-              />              
+                label={i18n('entities.order.fields.ready')}
+              />
               <TableCellCustom size="md" />
             </TableRow>
           </TableHead>
@@ -192,17 +215,17 @@ function OrderListTable(props) {
                       size="small"
                     />
                   </TableCell>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>
-                  {row.notifyOnComplete
-                    ? i18n('common.yes')
-                    : i18n('common.no')}
-                </TableCell>
-                <TableCell>
-                  {row.ready
-                    ? i18n('common.yes')
-                    : i18n('common.no')}
-                </TableCell>                  
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell>
+                    {row.notifyOnComplete
+                      ? i18n('common.yes')
+                      : i18n('common.no')}
+                  </TableCell>
+                  <TableCell>
+                    {row.ready
+                      ? i18n('common.yes')
+                      : i18n('common.no')}
+                  </TableCell>
                   <TableCell>
                     <Box
                       display="flex"
@@ -246,6 +269,14 @@ function OrderListTable(props) {
                           </IconButton>
                         </Tooltip>
                       )}
+                      <Tooltip title="Run Order">
+                        <IconButton
+                          color="primary"
+                          onClick={() => submitJob(row)}
+                        >
+                          <SendIcon />
+                        </IconButton>
+                      </Tooltip>
                     </Box>
                   </TableCell>
                 </TableRow>
