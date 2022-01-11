@@ -1,0 +1,12 @@
+dist
+node_modules
+.env
+.env.*
+
+Dockerfile
+.dockerignore
+
+npm*.log
+yarn*.log
+
+**/.DS_Store

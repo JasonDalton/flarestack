@@ -1,0 +1,131 @@
+version: '3'
+# DOCKER COMPOSE COMMAND REFERENCE
+# --------------------------------------------------------------------------
+# Install  | docker network create web
+#            docker run --rm --network web --name mydb -d mongo:latest
+# Run      | docker-compose up -d
+# Run Dev  | docker-compose up backend frontend --profile develop
+# Stop     | docker-compose stop
+# Update   | docker-compose pull
+# Logs     | docker-compose logs --tail=25 -f
+# Terminal | docker-compose exec flarestack-ai bash
+# Help     | docker-compose exec flarestack-ai flarestack-ai help
+# Config   | docker-compose exec flarestack-ai flarestack-ai config
+# Reset    | docker-compose exec flarestack-ai flarestack-ai reset
+# Backup   | docker-compose exec flarestack-ai flarestack-ai backup -a -i
+# Restore  | docker-compose exec flarestack-ai flarestack-ai restore -a -i
+# Index    | docker-compose exec flarestack-ai flarestack-ai index
+# Reindex  | docker-compose exec flarestack-ai flarestack-ai index -f
+# Import   | docker-compose exec flarestack-ai flarestack-ai import
+# Reset | docker compose down --volumes --rmi local; docker network remove web
+services:
+  traefik:
+    image: traefik:v2.6
+    container_name: traefik
+    ports:
+      - 80:80
+      - 443:443 # <== https
+      - 8080:8080 # <== :8080 is where the dashboard runs on
+    volumes:
+      - ./traefik/traefik.toml:/etc/traefik/traefik.toml
+      #   - ./traefik/services.toml:/etc/traefik/services.toml
+      - /var/run/docker.sock:/var/run/docker.sock
+  whoami:
+    image: traefik/whoami
+    container_name: whoami
+    #ports:
+    #  - 81:80
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.whoami.loadbalancer.server.port=80
+      - traefik.http.routers.whoami.rule=Host(`whoami.localhost`)
+      #  - "traefik.http.middlewares.foo-add-prefix.addprefix.prefix=/foo"
+      #  - "traefik.http.routers.router1.middlewares=foo-add-prefix@docker"
+  frontend:
+    container_name: frontend
+    build:
+      context: frontend
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.frontend.loadbalancer.server.port=80
+      - traefik.http.routers.frontend.rule=Host(`frontend.localhost`)
+  backend:
+    container_name: backend
+    build:
+      context: backend
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.fronbackendtend.loadbalancer.server.port=8080
+      - traefik.http.routers.fbackendrontend.rule=Host(`backend.localhost`)
+    environment:
+      - DATABASE_CONNECTION=mongodb://mydb:27017/db
+      - BACKEND_URL=http://localhost:8080/api
+      - FRONTEND_URL_WITH_SUBDOMAIN=http://[subdomain].frontend
+      - FRONTEND_URL=http://frontend
+      - AUTH_SOCIAL_GOOGLE_CALLBACK_URL=http://localhost:8080/api/auth/social/google/callback
+      - AUTH_SOCIAL_GOOGLE_CLIENT_ID=100663907983-92dfii1ngkhhf2688udd81q99j367kom.apps.googleusercontent.com
+      - AUTH_SOCIAL_GOOGLE_CLIENT_SECRET=tzSDtbyKzt7z5C14UW4sKx6F
+      - AWS_ACCESS_KEY_ID=AKIA3MK2MQT2HKPSOKOD
+      - AWS_REGION=us-east-1
+      - AWS_SECRET_ACCESS_KEY=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
+      - FILE_STORAGE_PROVIDER=aws
+      - FILE_STORAGE_BUCKET=flarestack-dev
+      - API_DOCUMENTATION_ENABLED=true
+      - AUTH_JWT_EXPIRES_IN=7 days
+      - AUTH_JWT_SECRET=dsdgfqoeiwrguwedofiklklkghwidfubvh
+      - DATABASE_TRANSACTIONS=false
+      - TENANT_MODE=single
+      ## Traefik v6 Reverse Proxy
+      ## Includes test certificates for https://*.traefik.net/
+      ## Docs: https://doc.traefik.io/traefik/
+      #  - traefik.http.routers.whoami.entrypoints=web
+      #  - traefik.http.services.whoami.loadbalancer.server.port=12345
+      #  - traefik.http.routers.whoami.rule=Host(`localhost`)
+      #  - traefik.http.routers.whoami.entrypoints=http
+      #  - traefik.http.routers.whoami.entrypoints=web
+      #  - traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)
+      #### Labels define the behavior and rules of the traefik proxy for this container ####
+      #  - traefik.enable=true # <== Enable traefik to proxy this container
+      #  - traefik.http.routers.nginx-web.rule=Host(`whoami.${HOST_NAME}) # <== Your Domain Name goes here for the http rule
+      #  - traefik.http.routers.nginx-web.entrypoints=web # <== Defining the entrypoint for http, **ref: line 30
+      #  - traefik.http.routers.nginx-web.middlewares=redirect@file # <== This is a middleware to redirect to https
+      #  - traefik.http.routers.nginx-secured.rule=Host(`whoami.${HOST_NAME}`) # <== Your Domain Name for the https rule
+      #  - traefik.http.routers.nginx-secured.entrypoints=web-secured # <== Defining entrypoint for https, **ref: line 31
+      #  - traefik.http.routers.nginx-secured.tls.certresolver=mytlschallenge # <== Defining certsresolvers for https
+      #  - traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)
+      #  - traefik.http.routers.api.entrypoints=http
+      #  - traefik.http.routers.whoami.rule=Host(`whoami.${HOST_NAME}`)
+      #  - traefik.http.routers.whoami.entrypoints=web
+      #  - traefik.http.services.whoami.loadbalancer.server.port=3000
+      #  - traefik.http.routers.whoami.entrypoints=web
+      #  - traefik.backend=tileserver
+      #  - traefik.docker.network=tileserver_web
+      #  - traefik.port=8000
+      #  - traefik.http.routers.api.entrypoints=http
+      #  - traefik.http.routers.whoami.entrypoints=web
+      #  - traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)
+
+
+      #    networks:
+      #      - web
+      #  - backend
+      #command:
+      #### These are the CLI commands that will configure Traefik and tell it how to work! ####
+      ## API Settings - https://docs.traefik.io/operations/api/, endpoints - https://docs.traefik.io/operations/api/#endpoints ##
+      #  - --api.insecure=true # <== Enabling insecure api, NOT RECOMMENDED FOR PRODUCTION
+      #  - --api.dashboard=true # <== Enabling the dashboard to view services, middlewares, routers, etc...
+      #  - --api.debug=true # <== Enabling additional endpoints for debugging and profiling
+      ## Log Settings (options: ERROR, DEBUG, PANIC, FATAL, WARN, INFO) - https://docs.traefik.io/observability/logs/ ##
+      #  - --log.level=DEBUG # <== Setting the level of the logs from traefik
+      ## Provider Settings - https://docs.traefik.io/providers/docker/#provider-configuration ##
+      #  - --providers.docker=true # <== Enabling docker as the provider for traefik
+      #  - --providers.docker.exposedbydefault=false # <== Don't expose every container to traefik, only expose enabled ones
+      #  - --providers.file.filename=/dynamic.yaml # <== Referring to a dynamic configuration file
+      #  - --providers.docker.network=web # <== Operate on the docker network named web
+      ## Entrypoints Settings - https://docs.traefik.io/routing/entrypoints/#configuration ##
+      #  - --entrypoints.web.address=:80 # <== Defining an entrypoint for port :80 named web
+      #  - --entrypoints.web-secured.address=:443 # <== Defining an entrypoint for https on port :443 named web-secured
+      ## Certificate Settings (Let's Encrypt) -  https://docs.traefik.io/https/acme/#configuration-examples ##
+      #  - --certificatesresolvers.mytlschallenge.acme.tlschallenge=true # <== Enable TLS-ALPN-01 to generate and renew ACME certs
+      #  - --certificatesresolvers.mytlschallenge.acme.email=theafkdeveloper@gmail.com # <== Setting email for certs
+      #  - --certificatesresolvers.mytlschallenge.acme.storage=/letsencrypt/acme.json # <== Defining acme file to store cert information

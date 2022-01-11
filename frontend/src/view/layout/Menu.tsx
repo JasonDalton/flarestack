@@ -1,34 +1,32 @@
 import React, { useLayoutEffect } from 'react';
 import { Link } from 'react-router-dom';
-import authSelectors from 'src/modules/auth/authSelectors';
-import { useDispatch, useSelector } from 'react-redux';
-import PermissionChecker from 'src/modules/auth/permissionChecker';
-import actions from 'src/modules/layout/layoutActions';
-import layoutSelectors from 'src/modules/layout/layoutSelectors';
-import menus from 'src/view/menus';
 import clsx from 'clsx';
+import { makeStyles } from '@material-ui/core/styles';
 import {
-  makeStyles,
   Drawer,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
 } from '@material-ui/core';
-
-const drawerWidth = 200;
+import authSelectors from 'src/modules/auth/authSelectors';
+import { useDispatch, useSelector } from 'react-redux';
+import PermissionChecker from 'src/modules/auth/permissionChecker';
+import actions from 'src/modules/layout/layoutActions';
+import layoutSelectors from 'src/modules/layout/layoutSelectors';
+import menus from 'src/view/menus';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
-    width: drawerWidth,
+    width: 200,
     flexShrink: 0,
   },
   drawerPaper: {
-    width: drawerWidth,
+    width: 200,
   },
   active: {
     color: theme.palette.primary.main,
-    fontWeight: theme.typography.fontWeightMedium,
+    fontWeight:'bold'
   },
   toolbar: theme.mixins.toolbar,
   listItemIcon: {
@@ -38,11 +36,9 @@ const useStyles = makeStyles((theme) => ({
     opacity: 0.5,
   },
 }));
-
 function Menu(props) {
   const classes = useStyles();
   const dispatch = useDispatch();
-
   const currentTenant = useSelector(
     authSelectors.selectCurrentTenant,
   );
@@ -56,21 +52,17 @@ function Menu(props) {
     currentTenant,
     currentUser,
   );
-
   useLayoutEffect(() => {
     const toggleMenuOnResize = () => {
       (window as any).innerWidth < 576
         ? dispatch(actions.doHideMenu())
         : dispatch(actions.doShowMenu());
     };
-
     toggleMenuOnResize();
-
     (window as any).addEventListener(
       'resize',
       toggleMenuOnResize,
     );
-
     return () => {
       (window as any).removeEventListener(
         'resize',
@@ -78,38 +70,30 @@ function Menu(props) {
       );
     };
   }, [dispatch]);
-
   const selectedKeys = () => {
     const url = props.url;
-
     const match = menus.find((option) => {
       if (option.exact) {
         return url === option.path;
       }
-
       return (
         url === option.path ||
         url.startsWith(option.path + '/')
       );
     });
-
     if (match) {
       return [match.path];
     }
-
     return [];
   };
-
   const match = (permission) => {
     return permissionChecker.match(permission);
   };
-
   const lockedForCurrentPlan = (permission) => {
     return permissionChecker.lockedForCurrentPlan(
       permission,
     );
   };
-
   const CustomRouterLink = (props) => (
     <div
       style={{
@@ -125,11 +109,9 @@ function Menu(props) {
       />
     </div>
   );
-
   if (!menuVisible) {
     return null;
   }
-
   return (
     <Drawer
       className={classes.drawer}
@@ -153,18 +135,16 @@ function Menu(props) {
                 <ListItemIcon
                   className={clsx({
                     [classes.listItemIcon]: true,
-                    [classes.active]: selectedKeys().includes(
-                      menu.path,
-                    ),
+                    [classes.active]:
+                      selectedKeys().includes(menu.path),
                   })}
                 >
                   {menu.icon}
                 </ListItemIcon>
                 <ListItemText
                   className={clsx({
-                    [classes.active]: selectedKeys().includes(
-                      menu.path,
-                    ),
+                    [classes.active]:
+                      selectedKeys().includes(menu.path),
                   })}
                 >
                   {menu.label}
@@ -172,13 +152,15 @@ function Menu(props) {
               </ListItem>
             </CustomRouterLink>
           ))}
-
         {menus
           .filter((menu) =>
             lockedForCurrentPlan(menu.permissionRequired),
           )
           .map((menu) => (
-            <ListItem key={menu.path} className={classes.listItemDisabled}>
+            <ListItem
+              key={menu.path}
+              className={classes.listItemDisabled}
+            >
               <ListItemIcon
                 className={classes.listItemIcon}
               >
@@ -191,5 +173,4 @@ function Menu(props) {
     </Drawer>
   );
 }
-
 export default Menu;

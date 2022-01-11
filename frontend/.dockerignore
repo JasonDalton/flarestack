@@ -1,0 +1,13 @@
+build
+node_modules
+.eslintcache
+.env
+.env.*
+
+Dockerfile
+.dockerignore
+
+npm*.log
+yarn*.log
+
+**/.DS_Store

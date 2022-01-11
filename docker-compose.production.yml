@@ -1,0 +1,25 @@
+version: '3'
+services:
+  traefik-proxy:
+    image: traefik:v2.6
+    container_name: traefik
+    restart: always
+    command: --api.insecure=true --providers.docker
+    ports:
+      - 80:80
+      - 8080:8080
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - traefik
+  backend:
+    restart: always
+    networks:
+      - traefik
+    environment:
+      - DATABASE_CONNECTION=mongodb+srv://sandbox_admin:secret123@sandbox.ohaxk.mongodb.net/flarestack_development2?retryWrites=true&w=majority
+  frontend:
+    restart: always
+    networks:
+      - traefik
+    ports: 80:80

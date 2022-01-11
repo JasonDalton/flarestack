@@ -9,77 +9,67 @@ import turfBuffer from 'turf-buffer';
 const Geoman = () => {
   const context = useLeafletContext();
   useEffect(() => {
-    const leafletContainer =
-      context.layerContainer || context.map;
-    fl.leafletContainer = leafletContainer;
-    fl.myLayer = L.geoJSON().addTo(leafletContainer);
-    leafletContainer.pm.addControls({
+    const lmap = context.layerContainer || context.map;
+    //L.PM.setOptIn(false);
+    fl.lmap = lmap;
+    const myLayer = L.geoJSON(null, {
+      snapIgnore: true,
+      style: function (feature) {
+        return {
+          color: 'blue',
+          fillColor: 'blue',
+          fillOpacity: 0.2,
+          weight: 1,
+        };
+      },
+    }).addTo(lmap);
+    fl.myLayer = myLayer;
+    lmap.pm.addControls({
       drawMarker: false,
       drawCircleMarker: false,
     });
-    leafletContainer.pm.setGlobalOptions({
-      pmIgnore: false,
+    lmap.pm.setGlobalOptions({
+      pmIgnore: true,
     });
-    leafletContainer.on('pm:create', (e) => {
-      if (e.layer && e.layer.pm) {
-        const shape = e;
-        shape.layer.pm.enable();
-        layerCreate(leafletContainer);
-        shape.layer.on('pm:edit', (e) => {
-          layerCreate(leafletContainer);
-        });
-      }
+    lmap.pm.setPathOptions({
+      color: 'blue',
+      fillColor: 'blue',
+      fillOpacity: 0.2,
+      weight: 2,
     });
-    leafletContainer.on('pm:remove', (e) => {
-      console.log('object removed');
-      fl.shape = null;
-      fl.workingLayer = null;
-      fl.myLayer.clearLayers();
+    lmap.on('pm:create', ({ shape, layer }) => {
+      layer.pm.enable();
+      layer.setStyle({ pmIgnore: false });
+      L.PM.reInitLayer(layer);
+      onEdit(lmap);
+      layer.on('pm:edit', (e) => {
+        onEdit(lmap);
+      });
+    });
+    lmap.on('pm:remove', (e) => {
+      onRemove(lmap);
+    });
+    lmap.on('pm:drawstart', ({ workingLayer, shape }) => {
+      onRemove(lmap);
+      //  ignoreShapes: ['Circle', 'Rectangle'],
+      //workingLayer.setStyle(mapstyle);
+      fl.shape = shape;
+      myLayer.clearLayers();
       document.getElementById('geojson').value = null;
       document.getElementById('estTimeComplete').value =
         null;
+      document.getElementById(
+        'bufferSlider',
+      ).style.visibility =
+        fl.shape === 'Line' ? 'visible' : 'hidden';
+      workingLayer.on('pm:vertexadded', (e) => {
+        window.ee = e;
+        onEdit(lmap, e.layer);
+      });
     });
-    leafletContainer.on(
-      'pm:drawstart',
-      ({ workingLayer, shape }) => {
-        console.log('drawstart', shape);
-        fl.shape = shape;
-        fl.workingLayer = workingLayer;
-        fl.myLayer.clearLayers();
-        document.getElementById('geojson').value = null;
-        document.getElementById('estTimeComplete').value =
-          null;
-        document.getElementById(
-          'bufferSlider',
-        ).style.visibility =
-          fl.shape === 'Line' ? 'visible' : 'hidden';
-        workingLayer.on(
-          'pm:vertexadded',
-          ({ shape, workingLayer, marker, latlng }) => {
-            if (fl.shape !== 'Line') {
-              return;
-            }
-            if (
-              workingLayer.toGeoJSON().geometry.coordinates
-                .length < 2
-            ) {
-              return;
-            }
-            const geojson = workingLayer.toGeoJSON();
-            const geojsonBuffer = turfBuffer(
-              geojson,
-              fl.flightBuffer,
-              'kilometers',
-            );
-            fl.myLayer.clearLayers();
-            fl.myLayer.addData(geojsonBuffer);
-          },
-        );
-      },
-    );
     return () => {
-      leafletContainer.pm.removeControls();
-      leafletContainer.pm.setGlobalOptions({
+      lmap.pm.removeControls();
+      lmap.pm.setGlobalOptions({
         showTooltip: true,
       });
     };
@@ -87,31 +77,61 @@ const Geoman = () => {
   return null;
 };
 export default Geoman;
-function layerCreate(leafletContainer) {
-  if (fl.shape === 'Line') {
-    const geojson = fl.myLayer.toGeoJSON().features[0];
-    calcLayer(
-      geojson,
-      leafletContainer.pm.getGeomanLayers()[0],
-    );
-  } else {
-    leafletContainer.pm.getGeomanLayers().forEach((layer) => {
-      let geojson = layer.toGeoJSON();
-      calcLayer(geojson, layer);
-    });
-  }
+function onRemove(lmap) {
+  fl.shape = null;
+  fl.myLayer.clearLayers();
+  lmap.pm
+    .getGeomanLayers()
+    .forEach((layer) => layer.remove());
+  document.getElementById('geojson').value = null;
+  document.getElementById('estTimeComplete').value = null;
 }
-function calcLayer(geojson, layer) {
-  const area = (turfArea(geojson) / 1000000).toFixed(2);
-  geojson.properties.area = area;
+function onEdit(lmap, l) {
+  fl.myLayer.clearLayers();
+  console.log('onEdit');
+  const layer = l || lmap.pm.getGeomanDrawLayers()[0];
+  if (!layer) {
+    return;
+  }
+  const geojsonMain = layer.toGeoJSON();
+  const isline =
+    geojsonMain?.geometry?.type === 'LineString';
+  if (!isline) {
+    calcLayer(geojsonMain);
+    const area = calcLayer(geojsonMain);
+    layer.bindPopup(`Area: ${area} sq. km`);
+    layer.openPopup();
+  }
+  const coords = geojsonMain?.geometry?.coordinates || [];
+  if (coords.length < 2) {
+    return;
+  }
+  const geojsonBuffer = turfBuffer(
+    geojsonMain,
+    fl.flightBuffer,
+    'kilometers',
+  );
+  fl.myLayer.addData(geojsonBuffer);
+  const area = calcLayer(geojsonBuffer, fl.myLayer);
   layer.bindPopup(`Area: ${area} sq. km`);
   layer.openPopup();
-  document.getElementById('geojson').value = JSON.stringify(
-    {
+}
+function calcLayer(geojson, layer) {
+  const coords = geojson?.geometry?.coordinates || [];
+  const len = coords.length;
+  const area = len
+    ? (turfArea(geojson) / 1000000).toFixed(2)
+    : 0;
+  let geostr;
+  if (len) {
+    geojson.properties.area = area;
+    geostr = JSON.stringify({
       type: 'FeatureCollection',
       features: [geojson],
-    },
-  );
+    });
+  }
+  document.getElementById('geojson').value = geostr;
   document.getElementById('estTimeComplete').value =
     Math.round((area * 9) / 60);
+  return area;
 }
