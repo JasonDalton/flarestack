@@ -1,0 +1,14 @@
+**/.DS_Store
+.DS_Store
+.dockerignore
+.env
+.env*
+.git
+.vscode
+Dockerfile*
+dist
+docker-compose*
+node_modules
+npm-debug.log
+package-lock.json
+yarn-error.log

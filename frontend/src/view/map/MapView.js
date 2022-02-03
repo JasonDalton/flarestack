@@ -59,7 +59,7 @@ function GeoSlider() {
 }
 const MapView = () => {
   const position = [39.097428, -77.61343];
-  const zoomLv = 13;
+  const zoomLv = 12;
   return (
     <>
       <GeoSlider />
