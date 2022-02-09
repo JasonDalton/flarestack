@@ -53,7 +53,7 @@ function SigninPage() {
     selectors.selectBackgroundImageUrl,
   );
   //const logoUrl = useSelector(selectors.selectLogoUrl);
-  const logoUrl = '/icons/icon.svg'
+  const logoUrl = '/icon.svg'
   const loading = useSelector(selectors.selectLoading);
   const externalErrorMessage = useSelector(
     selectors.selectErrorMessage,

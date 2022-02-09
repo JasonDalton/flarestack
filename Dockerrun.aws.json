@@ -1,0 +1,36 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "nginx",
+      "image": "azimuth1/dkr-multicontainer-app-nginx",
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": [
+        "frontend",
+        "backend"
+      ],
+      "memory": 100
+    },
+    {
+      "name": "frontend",
+      "image": "azimuth1/dkr-multicontainer-app-frontend",
+      "hostname": "frontend",
+      "essential": false,
+      "memory": 300
+    },
+    {
+      "name": "backend",
+      "image": "azimuth1/dkr-multicontainer-app-backend",
+      "hostname": "backend",
+      "essential": false,
+      "memory": 300
+    }
+  ]
+}

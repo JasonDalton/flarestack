@@ -1,44 +1,49 @@
-# live: docker-compose up -d
-# local-development: docker-compose up mongo && docker-compose up -d
-version: '3'
+version: "3.3"
 services:
-  backend:
-    image: flarestack-backend
+  nginx:
+    depends_on:
+      - frontend
+      - backend
+    restart: always # because it is routing traffic to our entire app
     build:
-      context: backend
-    restart: always
+      dockerfile: Dockerfile
+      context: ./nginx
     ports:
-      - 8080:8080
-    environment:
-      - DATABASE_CONNECTION=mongodb+srv://sandbox_admin:secret123@sandbox.ohaxk.mongodb.net/flarestack_development2?retryWrites=true&w=majority
-      #- DATABASE_CONNECTION=mongodb://mongo:27017/db
-      - BACKEND_URL=http://localhost:8080/api
-      - FRONTEND_URL=http://localhost
-      - FRONTEND_URL_WITH_SUBDOMAIN=http://[subdomain].localhost
-      - API_DOCUMENTATION_ENABLED=true
-      - AUTH_JWT_EXPIRES_IN=7 days
-      - AUTH_JWT_SECRET=dsoijfs90pfusjcd09sd90sd
-      - AUTH_SOCIAL_GOOGLE_CALLBACK_URL=http://localhost:8080/api/auth/social/google/callback
-      - AUTH_SOCIAL_GOOGLE_CLIENT_ID=100663907983-92dfii1ngkhhf2688udd81q99j367kom.apps.googleusercontent.com
-      - AUTH_SOCIAL_GOOGLE_CLIENT_SECRET=tzSDtbyKzt7z5C14UW4sKx6F
-      - AWS_ACCESS_KEY_ID=AKIA3MK2MQT2HKPSOKOD
-      - AWS_REGION=us-east-1
-      - AWS_SECRET_ACCESS_KEY=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
-      - DATABASE_TRANSACTIONS=false
-      - FILE_STORAGE_BUCKET=flarestack-dev
-      - FILE_STORAGE_PROVIDER=aws
-      - TENANT_MODE=single
+      - '80:80'
   frontend:
-    image: flarestack-frontend
     build:
-      context: frontend
-    restart: always
-    ports:
-      - 80:3000
-    environment:
-      - GENERATE_SOURCEMAP=false
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        - GENERATE_SOURCEMAP=false
+        - REACT_APP_ENVIRONMENT=production
+    #ports:
+    #  - '3000:3000'
+    volumes:
+      - /app/node_modules # Inside the container, don't try to override this folder, just leave as is
+    restart: on-failure
+    container_name: frontend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    #ports:
+    #  - '3001:3001'
+    restart: on-failure
+    container_name: backend
+    volumes:
+      - /app/node_modules # Inside the container, don't try to override this folder, just leave as is
+    env_file:
+      - ./env/backend.env
+    depends_on:
+      - mongo
   mongo:
-    image: mongo:latest
-    restart: always
+    image: 'mongo' # For development
+    container_name: 'mongo-db'
     profiles:
-      - development
+      - dev
+    ports:
+      - '27017-27019:27017-27019'
+    volumes:
+      - ./db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./db/mongo-volume:/data/db

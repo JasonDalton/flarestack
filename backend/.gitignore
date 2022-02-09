@@ -1,3 +1,2 @@
-node_modules/
-/data
-dist/
+/dist
+/node_modules
