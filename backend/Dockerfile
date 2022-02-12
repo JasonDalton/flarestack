@@ -3,30 +3,37 @@ FROM node:16-alpine AS builder
 
 WORKDIR /app
 
+COPY package*json /app/
 
-COPY package*json /tmp/
-
-RUN \
-  cd /tmp && npm install \
-  && mkdir -p /app \
-  && cp -a /tmp/node_modules /app/
-
-WORKDIR /app
+RUN npm ci
 
 COPY . .
 
-RUN npm run build
+#RUN npm run build
+RUN node_modules/.bin/tsc
 
-FROM node:16-alpine
+RUN mkdir -p dist/documentation \
+  && cp src/documentation/openapi.json dist/documentation/openapi.json
 
-WORKDIR /app
-
-COPY --from=builder /app/dist /app/node_modules /app/
+FROM node:16-alpine AS staging
 
 ENV NODE_ENV=production
 
-EXPOSE 3001
+WORKDIR /app
 
-ENTRYPOINT npm run db:create
+COPY package*json /app/
+
+RUN npm install --production
+
+FROM node:16-alpine
+
+ENV NODE_ENV=production
+
+WORKDIR /app
+
+COPY --from=builder /app/dist /app/dist
+COPY --from=staging /app/node_modules /app/node_modules
+
+EXPOSE 3001
 
 CMD ["node", "dist/server.js"]

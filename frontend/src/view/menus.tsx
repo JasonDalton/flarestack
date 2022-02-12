@@ -28,28 +28,16 @@ export default [
     icon: <CreditCardOutlinedIcon />,
     label: i18n('plan.menu'),
   },
+*/
+  /*
 
-  {
-    path: '/user',
-    label: i18n('user.menu'),
-    permissionRequired: permissions.userRead,
-    icon: <PersonIcon />,
-  },
-
-  {
-    path: '/audit-logs',
-    icon: <HistoryIcon />,
-    label: i18n('auditLog.menu'),
-    permissionRequired: permissions.auditLogRead,
-  },
-
-  {
-    path: '/settings',
-    icon: <SettingsIcon />,
-    label: i18n('settings.menu'),
-    permissionRequired: permissions.settingsEdit,
-  }, */
-  /* 
+   {
+     path: '/settings',
+     icon: <SettingsIcon />,
+     label: i18n('settings.menu'),
+     permissionRequired: permissions.settingsEdit,
+   }, */
+  /*
   {
     path: '/aoi',
     permissionRequired: permissions.aoiRead,
@@ -70,4 +58,16 @@ export default [
     icon: <ListIcon />,
     label: i18n('entities.order.menu'),
   },
+  {
+    path: '/user',
+    label: i18n('user.menu'),
+    permissionRequired: permissions.userRead,
+    icon: <PersonIcon />,
+  },
+  {
+    path: '/audit-logs',
+    icon: <HistoryIcon />,
+    label: i18n('auditLog.menu'),
+    permissionRequired: permissions.auditLogRead,
+  }
 ].filter(Boolean);

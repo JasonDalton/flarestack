@@ -1,0 +1,29 @@
+version: '3'
+services:
+  nginx:
+    restart: always
+    networks:
+      - ai_net
+    depends_on:
+      - frontend
+      - backend
+    build:
+      dockerfile: Dockerfile
+      context: ./nginx
+    ports:
+      - 80:80
+  frontend:
+    image: 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_frontend:latest
+    restart: always
+    networks:
+      - ai_net
+  backend:
+    image: 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_backend:latest
+    restart: always
+    networks:
+      - ai_net
+    env_file:
+      - ./env/backend.env
+
+networks:
+  ai_net:

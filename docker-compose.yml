@@ -1,49 +1,23 @@
-version: "3.3"
+version: '3'
 services:
-  nginx:
-    depends_on:
-      - frontend
-      - backend
-    restart: always # because it is routing traffic to our entire app
-    build:
-      dockerfile: Dockerfile
-      context: ./nginx
-    ports:
-      - '80:80'
   frontend:
+    image: flarestack_frontend
+    container_name: frontend
+    networks:
+      - ai_net
     build:
       context: ./frontend
       dockerfile: Dockerfile
-      args:
-        - GENERATE_SOURCEMAP=false
-        - REACT_APP_ENVIRONMENT=production
-    #ports:
-    #  - '3000:3000'
-    volumes:
-      - /app/node_modules # Inside the container, don't try to override this folder, just leave as is
-    restart: on-failure
-    container_name: frontend
   backend:
+    image: flarestack_backend
+    container_name: backend
+    networks:
+      - ai_net
     build:
       context: ./backend
       dockerfile: Dockerfile
-    #ports:
-    #  - '3001:3001'
-    restart: on-failure
-    container_name: backend
-    volumes:
-      - /app/node_modules # Inside the container, don't try to override this folder, just leave as is
     env_file:
       - ./env/backend.env
-    depends_on:
-      - mongo
-  mongo:
-    image: 'mongo' # For development
-    container_name: 'mongo-db'
-    profiles:
-      - dev
-    ports:
-      - '27017-27019:27017-27019'
-    volumes:
-      - ./db/init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
-      - ./db/mongo-volume:/data/db
+
+networks:
+  ai_net:

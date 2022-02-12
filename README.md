@@ -1,7 +1,7 @@
 # FlareStack
 
 Version: 0.0.1
-Additional Documentation: https://docs.scaffoldhub.io
+Additional Documentation: <https://docs.scaffoldhub.io>
 
 ## Overview
 
@@ -10,27 +10,20 @@ Additional Documentation: https://docs.scaffoldhub.io
 - Storage
 - Analytics
 - Functions
-#
-## Setup & Start MongoDB locally (development)
-
-```
-# Start the database locally in development mode
-docker-compose --file mongo-stack.yml up -d mongo
-# optionally start it with Mongo Express (http://localhost:8081 )to debug
-# docker-compose --file mongo-stack.yml up mongo-express --profile debug
-
-```
 
 ## Setup backend/frontend
 
-```
-# Setup env files
-cp frontend/.env.example frontend/.env
-cp backend/.env.example backend/.env
+```sh
 
-# Install dependencies
-(cd frontend && npm install)
-(cd backend && npm install)
+# Setup env files
+cp env/frontend.env.example frontend/.env
+cp env/backend.env.example backend/.env
+
+# Install backend dependencies
+cd backend && npm install
+
+# Install frontend dependencies in another terminal
+cd frontend && npm install
 
 # Run this once on the database or whenever there is a migration
 cd backend && npm run db:create
@@ -39,6 +32,9 @@ cd backend && npm run db:create
 ## Starting
 
 ```
+# Start the database locally in development mode
+docker-compose up -f services.yml -d mongo
+
 # Start backend
 cd backend && npm start
 
@@ -49,14 +45,42 @@ cd frontend && npm start
 ## Reset
 
 ```
-docker-compose --file mongo-stack.yml down --volumes
-rm -rf backend/node_modules
-rm -rf frontend/node_modules
+docker-compose down --volumes
+rm -rf \
+  backend/{dist,node_modules} \
+  frontend/{build,node_modules} \
+  db/mongo_data
+```
+
+## Building
+
+```
+
+
+docker build -t flarestack_backend backend
+docker build -t flarestack_frontend frontend
+
+docker tag flarestack_backend:latest 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_backend:latest
+
+docker tag flarestack_frontend:latest 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_frontend:latest
+
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 578568968001.dkr.ecr.us-east-1.amazonaws.com
+
+docker push 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_frontend:latest
+docker push 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_backend:latest
+
 ```
 
 ## Deployment
 
-See deployment/README.md
+```
+
+docker-compose \
+  -f docker-compose.yml \
+  -f docker-compose.production.yml \
+  up -d
+
+```
 
 ## Notes
 
@@ -74,4 +98,3 @@ The API interface
   and get back:
   A unique ID that will be the key to the job status and results
   We can decide where we want authentication to happen (i.e. should that be part of the backend or frontend... if it's part of the frontend then there would just be something like a secret key that you would need to provide the backend API and we'd leave it up to the frontend code to authenticate)
-

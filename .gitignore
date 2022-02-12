@@ -1,8 +1,9 @@
-# Environment variables
-/env
-
-# Mongo db volume data for persistence storage
-/db/mongo-volume/*
-
-# Idea IDE configs
-.idea
+.DS_Store
+.eslintcache
+.vscode
+build
+db/mongo_data
+dist
+env/backend.env
+env/frontend.env
+node_modules

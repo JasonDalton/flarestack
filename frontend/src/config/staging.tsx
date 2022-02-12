@@ -10,8 +10,8 @@ const apiDocumentationUrl = `/documentation`;
  * Frontend URL.
  */
 const frontendUrl = {
-  host: 'domain.com',
-  protocol: 'https',
+  host: 'domain',
+  protocol: 'http',
 };
 
 /**

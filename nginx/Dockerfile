@@ -1,5 +1,5 @@
 # Pull in the from the official nginx image.
-FROM nginx
+FROM nginx:stable-alpine
 
 EXPOSE 80
 

@@ -20,21 +20,7 @@ const languages: {
     flag: '/images/flags/United-States.png',
     dateFns: null,
     dictionary: null,
-  },
-  es: {
-    id: 'es',
-    label: 'Español',
-    flag: '/images/flags/Spain.png',
-    dateFns: null,
-    dictionary: null,
-  },
-  'pt-BR': {
-    id: 'pt-BR',
-    label: 'Português',
-    flag: '/images/flags/Brazil.png',
-    dateFns: null,
-    dictionary: null,
-  },
+  }
 };
 
 export async function init() {
@@ -42,66 +28,10 @@ export async function init() {
     localStorage.getItem('language') || 'en';
   setLanguageCode(currentLanguageCode);
 
-  if (currentLanguageCode === 'en') {
-    await initEn();
-  }
+  await initEn();
 
-  if (currentLanguageCode === 'pt-BR') {
-    await initPtBr();
-  }
-
-  if (currentLanguageCode === 'es') {
-    await initEs();
-  }
 }
 
-async function initEs() {
-  const language = languages['es'];
-
-  // @ts-ignore
-  const momentLocale = (await import('moment/locale/es'))
-    .default;
-
-  language.dateFns = (
-    await import('date-fns/locale/es')
-  ).default;
-
-  language.dictionary = (
-    await import('src/i18n/es')
-  ).default;
-
-  moment.locale('es', momentLocale);
-
-  if (language.dictionary.validation) {
-    setYupLocale(language.dictionary.validation);
-  }
-
-  return language;
-}
-
-async function initPtBr() {
-  const language = languages['pt-BR'];
-
-  // @ts-ignore
-  const momentLocale = (await import('moment/locale/pt-br'))
-    .default;
-
-  language.dateFns = (
-    await import('date-fns/locale/pt-BR')
-  ).default;
-
-  language.dictionary = (
-    await import('src/i18n/pt-BR')
-  ).default;
-
-  moment.locale('pt-BR', momentLocale);
-
-  if (language.dictionary.validation) {
-    setYupLocale(language.dictionary.validation);
-  }
-
-  return language;
-}
 
 async function initEn() {
   const language = languages['en'];
