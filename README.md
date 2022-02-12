@@ -3,6 +3,10 @@
 Version: 0.0.1
 Additional Documentation: <https://docs.scaffoldhub.io>
 
+```
+ssh -i "ai_deploy.pem" ubuntu@ec2-54-242-70-116.compute-1.amazonaws.com
+```
+
 ## Overview
 
 - Authentication
@@ -14,18 +18,12 @@ Additional Documentation: <https://docs.scaffoldhub.io>
 ## Setup backend/frontend
 
 ```sh
-
-# Setup env files
-cp env/frontend.env.example frontend/.env
-cp env/backend.env.example backend/.env
-
 # Install backend dependencies
 cd backend && npm install
-
 # Install frontend dependencies in another terminal
 cd frontend && npm install
-
 # Run this once on the database or whenever there is a migration
+docker-compose up -d mongo
 cd backend && npm run db:create
 ```
 
@@ -33,11 +31,9 @@ cd backend && npm run db:create
 
 ```
 # Start the database locally in development mode
-docker-compose up -f services.yml -d mongo
 
 # Start backend
 cd backend && npm start
-
 # Start frontend in another terminal
 cd frontend && npm start
 ```
@@ -48,38 +44,30 @@ cd frontend && npm start
 docker-compose down --volumes
 rm -rf \
   backend/{dist,node_modules} \
-  frontend/{build,node_modules} \
-  db/mongo_data
+  frontend/{build,node_modules
 ```
 
 ## Building
 
 ```
 
+aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 578568968001.dkr.ecr.us-east-1.amazonaws.com
 
 docker build -t flarestack_backend backend
 docker build -t flarestack_frontend frontend
 
 docker tag flarestack_backend:latest 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_backend:latest
-
 docker tag flarestack_frontend:latest 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_frontend:latest
 
-aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 578568968001.dkr.ecr.us-east-1.amazonaws.com
-
-docker push 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_frontend:latest
 docker push 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_backend:latest
+docker push 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_frontend:latest
 
 ```
 
 ## Deployment
 
 ```
-
-docker-compose \
-  -f docker-compose.yml \
-  -f docker-compose.production.yml \
-  up -d
-
+docker-compose up -d
 ```
 
 ## Notes

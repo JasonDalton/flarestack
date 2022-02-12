@@ -3,27 +3,23 @@ FROM node:16-alpine AS builder
 
 WORKDIR /app
 
-COPY package*json /app/
+COPY package*json ./
 
-RUN npm ci
+RUN npm ci --silent
 
 COPY . .
 
-#RUN npm run build
-RUN node_modules/.bin/tsc
+RUN npm run build
 
-RUN mkdir -p dist/documentation \
-  && cp src/documentation/openapi.json dist/documentation/openapi.json
-
-FROM node:16-alpine AS staging
+FROM node:16-alpine as staging
 
 ENV NODE_ENV=production
 
 WORKDIR /app
 
-COPY package*json /app/
-
-RUN npm install --production
+COPY package*json ./
+RUN npm install --production --silent
+COPY --from=builder /app/dist /app/dist
 
 FROM node:16-alpine
 
@@ -31,9 +27,8 @@ ENV NODE_ENV=production
 
 WORKDIR /app
 
-COPY --from=builder /app/dist /app/dist
-COPY --from=staging /app/node_modules /app/node_modules
+COPY --from=staging /app /app
 
-EXPOSE 3001
+EXPOSE 8080
 
 CMD ["node", "dist/server.js"]

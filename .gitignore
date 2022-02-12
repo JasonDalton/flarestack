@@ -2,8 +2,5 @@
 .eslintcache
 .vscode
 build
-db/mongo_data
 dist
-env/backend.env
-env/frontend.env
 node_modules

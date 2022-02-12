@@ -3,5 +3,6 @@
 .env
 Dockerfile
 dist
+email-templates
 node_modules
 npm*log
