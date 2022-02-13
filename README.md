@@ -51,15 +51,17 @@ rm -rf \
 
 ```
 
+
 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 578568968001.dkr.ecr.us-east-1.amazonaws.com
 
+
 docker build -t flarestack_backend backend
-docker build -t flarestack_frontend frontend
-
-docker tag flarestack_backend:latest 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_backend:latest
-docker tag flarestack_frontend:latest 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_frontend:latest
-
+docker tag flarestack_backend 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_backend:latest
 docker push 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_backend:latest
+
+
+docker build -t flarestack_frontend frontend
+docker tag flarestack_frontend 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_frontend:latest
 docker push 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_frontend:latest
 
 ```
@@ -67,7 +69,7 @@ docker push 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_frontend:lat
 ## Deployment
 
 ```
-docker-compose up -d
+docker-compose -f docker-compose.prod.yml -d up
 ```
 
 ## Notes

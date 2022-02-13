@@ -1,17 +1,17 @@
 // Place the URL here with the /api suffix.
 // Ex.:`https://domain.com/api`;
-const backendUrl = `/api`;
+const backendUrl = `https://flarestack.azimuth1app.com/api`;
 
 // SwaggerUI Documentation URL
 // Leave black if documentation should be hidden
-const apiDocumentationUrl = `/documentation`;
+const apiDocumentationUrl = `https://flarestack.azimuth1app.com/documentation`;
 
 /**
  * Frontend URL.
  */
 const frontendUrl = {
-  host: 'localhost',
-  protocol: 'http',
+  host: 'flarestack.azimuth1app.com',
+  protocol: 'https',
 };
 
 /**
