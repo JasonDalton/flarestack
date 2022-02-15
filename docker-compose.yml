@@ -1,29 +1,29 @@
 version: '3'
 services:
   frontend:
-    image: flarestack_frontend
+    #image: 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_frontend
+    #restart: always
+    depends_on:
+      - backend
     container_name: frontend
-    build:
-      context: ./frontend
-      dockerfile: Dockerfile
     ports:
       - 80:80
-  backend:
-    image: flarestack_backend
-    container_name: backend
     build:
-      context: ./backend
-      dockerfile: Dockerfile
+      context: frontend
+  backend:
+    #image: 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_backend
+    #restart: always
+    container_name: backend
     #ports:
     #  - 8080:8080
+    build:
+      context: backend
     environment:
-      #- DATABASE_CONNECTION=mongodb://mongo:27017/dev1
       - DATABASE_CONNECTION=mongodb+srv://sandbox_admin:secret123@sandbox.ohaxk.mongodb.net/flarestack_development2?retryWrites=true&w=majority
       - DATABASE_TRANSACTIONS=false
       - FRONTEND_URL=http://localhost
       - FRONTEND_URL_WITH_SUBDOMAIN=http://[subdomain].localhost
       - BACKEND_URL=http://localhost/api
-      - AUTH_SOCIAL_GOOGLE_CALLBACK_URL=http://localhost/api/auth/social/google/callback
       - FILE_STORAGE_PROVIDER=aws
       - FILE_STORAGE_BUCKET=flarestack-dev
       - AWS_REGION=us-east-1
@@ -31,10 +31,12 @@ services:
       - AWS_SECRET_ACCESS_KEY=UYrlnrPA9xSG6ujjUoZBb174erws/K9xSuggE8nK
       - AUTH_SOCIAL_GOOGLE_CLIENT_ID=605635252608-phm991alk5dicbqq6rnji74sjmqkcdq7.apps.googleusercontent.com
       - AUTH_SOCIAL_GOOGLE_CLIENT_SECRET=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
-      - AUTH_JWT_SECRET=dskklklklfjewos
+      - AUTH_SOCIAL_GOOGLE_CALLBACK_URL=http://localhost/api/auth/social/google/callback
+      - AUTH_JWT_SECRET=dskklklkioiolfjewos
       - AUTH_JWT_EXPIRES_IN=7 days
       - API_DOCUMENTATION_ENABLED=true
       - TENANT_MODE=single
+
   mongo:
     image: mongo:4
     profiles:

@@ -1,13 +1,15 @@
 version: '3'
 services:
   frontend:
-    image: 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_frontend:latest
+    image: 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_frontend
     restart: always
+    depends_on:
+      - backend
     container_name: frontend
     ports:
       - 80:80
   backend:
-    image: 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_backend:latest
+    image: 578568968001.dkr.ecr.us-east-1.amazonaws.com/flarestack_backend
     restart: always
     container_name: backend
     #ports:
@@ -15,9 +17,9 @@ services:
     environment:
       - DATABASE_CONNECTION=mongodb+srv://sandbox_admin:secret123@sandbox.ohaxk.mongodb.net/flarestack_development2?retryWrites=true&w=majority
       - DATABASE_TRANSACTIONS=false
-      - FRONTEND_URL=https://flarestack.azimuth1app.com
-      - FRONTEND_URL_WITH_SUBDOMAIN=https://[subdomain].flarestack.azimuth1app.com
-      - BACKEND_URL=https://backend:8080/api
+      - FRONTEND_URL=http://flarestack.azimuth1app.com
+      - FRONTEND_URL_WITH_SUBDOMAIN=http://[subdomain].flarestack.azimuth1app.com
+      - BACKEND_URL=http://flarestack.azimuth1app.com/api
       - FILE_STORAGE_PROVIDER=aws
       - FILE_STORAGE_BUCKET=flarestack-dev
       - AWS_REGION=us-east-1
@@ -25,8 +27,8 @@ services:
       - AWS_SECRET_ACCESS_KEY=UYrlnrPA9xSG6ujjUoZBb174erws/K9xSuggE8nK
       - AUTH_SOCIAL_GOOGLE_CLIENT_ID=605635252608-phm991alk5dicbqq6rnji74sjmqkcdq7.apps.googleusercontent.com
       - AUTH_SOCIAL_GOOGLE_CLIENT_SECRET=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
-      - AUTH_SOCIAL_GOOGLE_CALLBACK_URL=https://flarestack.azimuth1app.com/api/auth/social/google/callback
-      - AUTH_JWT_SECRET=dskklklkioiolfjewos
+      - AUTH_SOCIAL_GOOGLE_CALLBACK_URL=http://flarestack.azimuth1app.com/api/auth/social/google/callback
+      - AUTH_JWT_SECRET=dskklkw938ufvhlkioiolfjewos
       - AUTH_JWT_EXPIRES_IN=7 days
       - API_DOCUMENTATION_ENABLED=true
       - TENANT_MODE=single
