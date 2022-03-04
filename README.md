@@ -4,7 +4,7 @@ Version: 0.0.1
 Additional Documentation: <https://docs.scaffoldhub.io>
 
 ```
-ssh -i "ai_deploy.pem" ubuntu@ec2-54-242-70-116.compute-1.amazonaws.com
+ ssh -i "ai_deploy.pem" ubuntu@ec2-54-158-29-242.compute-1.amazonaws.com
 ```
 
 ## Overview
